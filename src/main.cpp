@@ -14,8 +14,9 @@ int main(){
 
     RenderObject testObject;
     testObject.addSprite(textureMgr.getTexture("melee"),"body");
+    testObject.setSpritePosition("body",50,50);
     testObject.addSprite(textureMgr.getTexture("ranged"),("test"));
-    renderMgr.addMultiObjects(testObject.getAllSprites());
+    testObject.setSpriteMap(renderMgr.addMultiObjects(testObject.getSpriteMap()));
 
 
 

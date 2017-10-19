@@ -19,12 +19,15 @@ std::vector<sf::Sprite>::iterator RenderManager::addObject(sf::Sprite spriteIn){
 
 }
 
-std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> RenderManager::addMultiObjects(std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> vecIn){
-    for(int i = 0; i < vecIn.size(); i++){
-        vecIn.at(i).second = addObject(vecIn.at(i).first);
-    }
-    return vecIn;
+std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> RenderManager::addMultiObjects(
+                                                                                         std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> mapIn){
 
+    std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>>::iterator it;
+    for(it = mapIn.begin(); it != mapIn.end(); it++){
+        it->second.second = addObject(it->second.first);
+
+    }
+    return mapIn;
 }
 
 void RenderManager::render(sf::RenderWindow &window){

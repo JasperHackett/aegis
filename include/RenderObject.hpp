@@ -10,18 +10,12 @@ class RenderObject{
         RenderObject();
         virtual ~RenderObject();
 
-        //Returns vector of sprite and renderVector iterator pairings
-        virtual std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> getAllSprites();
+        //Get & set sprite map
+        virtual std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> getSpriteMap();
+        virtual void setSpriteMap(std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> spriteMapIn);
 
-        //Updates the position each sprite is stored in in the render vector
-        virtual void setSpriteVector(std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>>);
-
-        //Add sprite to vector, sets render iterator to null and assigns name for spriteNameIteratorMap
+        //Add sprite to map, sets iterator to null
         virtual void addSprite(sf::Texture *textureIn, std::string name);
-
-        //Get&set Iterator of sprite in pair vector
-        virtual std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>>::iterator getSpriteVecIter(std::string name);
-        virtual void setSpriteVecIter(std::string name, std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>>::iterator iterIn);
 
         //Sets individual sprite position
         virtual void setSpritePosition(std::string name, float x, float y);
@@ -29,10 +23,11 @@ class RenderObject{
     protected:
 
     private:
-        //Vector of pairs holding the sprite and an iterator to the sprites position in renderVector
-        std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> spriteVector;
-        //Key is user defined name of sprite, value is an iterator of the  pair with the sprite  and renderVector iterator
-        std::map<std::string,std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>>::iterator> spriteNameIteratorMap;
+
+
+        std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> spriteMap;
+
+
 
 };
 

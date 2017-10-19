@@ -16,7 +16,8 @@ class RenderManager
         std::vector<sf::Sprite>::iterator addObject(sf::Sprite spriteIn);
 
         //Adds a vector of sprites and updates the sprite in each pair with the index in main render vertex
-        std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> addMultiObjects(std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> vecIn);
+        std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> addMultiObjects(
+                                                                                          std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> mapIn);
 
         void removeObject();
 
