@@ -15,15 +15,23 @@ int main(){
     RenderObject testObject;
     testObject.addSprite(textureMgr.getTexture("melee"),"body");
     testObject.setSpritePosition("body",50,50);
-    testObject.addSprite(textureMgr.getTexture("ranged"),("test"));
+    //testObject.addSprite(textureMgr.getTexture("ranged"),("test"));
+    testObject.setPos(sf::IntRect(50,50,50,50));
     testObject.setSpriteMap(renderMgr.addMultiObjects(testObject.getSpriteMap()));
+    testObject.setSpritePosition("body",200,200);
+    testObject.updateSprite("body",&renderMgr);
+
+    ClickManager mainClickManager;
+    mainClickManager.addObject(&testObject);
 
 
 
     //Main frame loop
     while (mainWindow.isOpen()){
 
+        mousePos = sf::Mouse::getPosition(mainWindow);
         sf::Event event;
+
         while (mainWindow.pollEvent(event)){
                 if(event.type == sf::Event::Closed){
                     mainWindow.close();
@@ -31,7 +39,7 @@ int main(){
 
         }
         mainWindow.clear();
-
+        mainClickManager.checkHover(mousePos);
        // mainWindow.draw(testSprite);
         renderMgr.render(mainWindow);
 
@@ -40,3 +48,4 @@ int main(){
 
     return 0;
 }
+

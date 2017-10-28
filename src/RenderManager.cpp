@@ -1,5 +1,5 @@
 #include "RenderManager.hpp"
-
+#include <iostream>
 RenderManager::RenderManager()
 {
     //ctor
@@ -10,24 +10,27 @@ RenderManager::~RenderManager()
     //dtor
 }
 
-std::vector<sf::Sprite>::iterator RenderManager::addObject(sf::Sprite spriteIn){
+sf::Sprite* RenderManager::addObject(sf::Sprite spriteIn){
     sf::Sprite newSprite;
     newSprite = spriteIn;
     this->renderVector.push_back(newSprite);
-    std::vector<sf::Sprite>::iterator iter = renderVector.end();
-    return iter;
+    return &renderVector.back();
 
 }
 
-std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> RenderManager::addMultiObjects(
-                                                                                         std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> mapIn){
+std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>> RenderManager::addMultiObjects(std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>> mapIn){
 
-    std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>>::iterator it;
+    std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>>::iterator it;
     for(it = mapIn.begin(); it != mapIn.end(); it++){
         it->second.second = addObject(it->second.first);
-
     }
     return mapIn;
+}
+
+void RenderManager::updateSprite(sf::Sprite* spritePosition, sf::Sprite spriteIn){
+    sf::Sprite newSprite;
+    newSprite = spriteIn;
+    addObject(newSprite);
 }
 
 void RenderManager::render(sf::RenderWindow &window){

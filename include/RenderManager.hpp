@@ -13,18 +13,23 @@ class RenderManager
         void render(sf::RenderWindow &window);
 
         //Adds object and returns position pointer in vector
-        std::vector<sf::Sprite>::iterator addObject(sf::Sprite spriteIn);
+        sf::Sprite* addObject(sf::Sprite spriteIn);
 
         //Adds a vector of sprites and updates the sprite in each pair with the index in main render vertex
-        std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> addMultiObjects(
-                                                                                          std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> mapIn);
+        std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>> addMultiObjects(std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>> mapIn);
+
+
 
         void removeObject();
+
+        void updateSprite(sf::Sprite* spritePosition, sf::Sprite spriteIn);
+
+        std::vector<sf::Sprite> renderVector;
 
     protected:
 
     private:
-        std::vector<sf::Sprite> renderVector;
+
 };
 
 #endif // RENDERMANAGER_H

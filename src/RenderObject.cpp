@@ -1,5 +1,6 @@
 #include "RenderObject.hpp"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 RenderObject::RenderObject()
 {
@@ -14,39 +15,41 @@ RenderObject::~RenderObject()
 void RenderObject::addSprite(sf::Texture *textureIn, std::string name){
     sf::Sprite newSprite;
     newSprite.setTexture((*textureIn));
-    std::vector<sf::Sprite>::iterator iter;
-    std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator> pairIn = {newSprite,iter};
+    sf::Sprite* spritePtr; //Pointer that holds the position in the render vector
+    std::pair<sf::Sprite,sf::Sprite*> pairIn = {newSprite,spritePtr};
 
-    this->spriteMap.insert(std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>>::value_type(name,pairIn));
+    this->spriteMap.insert(std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>>::value_type(name,pairIn));
 
 }
 
-std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> RenderObject::getSpriteMap(){
+std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>> RenderObject::getSpriteMap(){
     return spriteMap;
 }
 
-void RenderObject::setSpriteMap(std::map<std::string,std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> spriteMapIn){
+void RenderObject::setSpriteMap(std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>> spriteMapIn){
     this->spriteMap = spriteMapIn;
 }
 
-//void RenderObject::setSpriteVector(std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>> vecIn){
-//    this->spriteVector = vecIn;
-//}
-//
-//
-//
-//
-//
-//std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>>::iterator RenderObject::getSpriteVecIter(std::string name){
-//    return spriteNameIteratorMap[name];
-//}
-//
-//void RenderObject::setSpriteVecIter(std::string name, std::vector<std::pair<sf::Sprite,std::vector<sf::Sprite>::iterator>>::iterator iterIn){
-//    spriteNameIteratorMap[name] = iterIn;
-//
-//}
-//
 void RenderObject::setSpritePosition(std::string name, float x, float y){
     spriteMap.at(name).first.setPosition(x,y);
 }
 
+sf::IntRect RenderObject::getPos(){
+    return this->pos;
+}
+void RenderObject::setPos(sf::IntRect posIn){
+    this->pos = posIn;
+}
+
+void RenderObject::setHovered(bool isHovered){
+    if(isHovered == true){
+        std::cout << "object hovered" << std::endl;
+    }else{
+        std::cout << "object not hovered" << std::endl;
+    }
+
+}
+
+void RenderObject::updateSprite(std::string name, RenderManager* rendMgr){
+    rendMgr->updateSprite(spriteMap[name].second,spriteMap[name].first);
+}
