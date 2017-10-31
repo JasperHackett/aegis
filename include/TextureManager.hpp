@@ -17,12 +17,21 @@ class TextureManager
         //Returns a reference to a texture in the map
         sf::Texture *getTexture(const std::string &name);
 
+        //Load font and add to map
+        void loadFont(const std::string &name, const std::string &filename);
+
+        //Returns a reference to a font in map
+        sf::Font *getFont(const std::string &name);
+
     protected:
 
     private:
 
         //Map of textures
         std::map<std::string, sf::Texture> textureMap;
+
+        //Map of fonts
+        std::map<std::string, sf::Font> fontMap;
 };
 
 #endif // TEXTUREMANAGER_H

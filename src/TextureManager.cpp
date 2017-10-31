@@ -23,3 +23,15 @@ sf::Texture *TextureManager::getTexture(const std::string& name){
     sf::Texture* textPtr = &this->textureMap.at(name);
     return textPtr;
 }
+
+//Load font
+void TextureManager::loadFont(const std::string &name, const std::string &filename){
+    sf::Font fontIn;
+    fontIn.loadFromFile(filename);
+    this->fontMap[name] = fontIn;
+}
+
+sf::Font *TextureManager::getFont(const std::string& name){
+    sf::Font* fontPtr = &this->fontMap.at(name);
+    return fontPtr;
+}

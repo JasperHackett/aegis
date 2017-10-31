@@ -1,7 +1,7 @@
 #ifndef CLICKMANAGER_H
 #define CLICKMANAGER_H
 
-    #include "renderobject.hpp"
+    #include "RenderObject.hpp"
     #include <SFML/graphics.hpp>
     #include <map>
 
@@ -20,7 +20,6 @@ class ClickManager
         bool somethingHovered = false;
         RenderObject* hoveredObject = nullptr;
         std::vector<RenderObject*> visibleObjects;
-        RenderManager* mgrPtr;
 };
 
 #endif // CLICKMANAGER_H

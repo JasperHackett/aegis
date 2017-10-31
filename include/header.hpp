@@ -7,7 +7,9 @@
 #include <TextureManager.hpp>
 #include <RenderObject.hpp>
 #include <ClickManager.hpp>
-
+#include <hoverFunctions.hpp>
+#include <iostream>
+#include <TextLogEntry.hpp>
 
 //Temporarily static values
 float resHeight = 900;
@@ -19,6 +21,7 @@ sf::Vector2i mousePos;
 //Core UI data strctures
 TextureManager textureMgr;
 RenderManager renderMgr;
+ClickManager clickMgr;
 
 
 

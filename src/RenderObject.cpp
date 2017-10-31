@@ -15,23 +15,20 @@ RenderObject::~RenderObject()
 void RenderObject::addSprite(sf::Texture *textureIn, std::string name){
     sf::Sprite newSprite;
     newSprite.setTexture((*textureIn));
-    sf::Sprite* spritePtr; //Pointer that holds the position in the render vector
-    std::pair<sf::Sprite,sf::Sprite*> pairIn = {newSprite,spritePtr};
-
-    this->spriteMap.insert(std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>>::value_type(name,pairIn));
+    this->spriteMap.insert(std::pair<std::string,sf::Sprite>(name,newSprite));
 
 }
 
-std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>> RenderObject::getSpriteMap(){
+std::map<std::string,sf::Sprite> RenderObject::getSpriteMap(){
     return spriteMap;
 }
 
-void RenderObject::setSpriteMap(std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>> spriteMapIn){
+void RenderObject::setSpriteMap(std::map<std::string,sf::Sprite> spriteMapIn){
     this->spriteMap = spriteMapIn;
 }
 
 void RenderObject::setSpritePosition(std::string name, float x, float y){
-    spriteMap.at(name).first.setPosition(x,y);
+    spriteMap.at(name).setPosition(x,y);
 }
 
 sf::IntRect RenderObject::getPos(){
@@ -42,14 +39,34 @@ void RenderObject::setPos(sf::IntRect posIn){
 }
 
 void RenderObject::setHovered(bool isHovered){
-    if(isHovered == true){
-        std::cout << "object hovered" << std::endl;
-    }else{
-        std::cout << "object not hovered" << std::endl;
+    if(hoverFunction != nullptr){
+       if(isHovered == true){
+            this->hoverFunction(this,true);
+        }else{
+            this->hoverFunction(this,false);
+        }
+    }
+
+
+}
+
+void RenderObject::draw(sf::RenderWindow &window){
+    std::map<std::string,sf::Sprite>::iterator it;
+    for(it = spriteMap.begin(); it != spriteMap.end(); it++){
+        window.draw(it->second);
     }
 
 }
 
-void RenderObject::updateSprite(std::string name, RenderManager* rendMgr){
-    rendMgr->updateSprite(spriteMap[name].second,spriteMap[name].first);
+//Assign a function to be called when object is hovered
+ void RenderObject::assignHoverFunction(std::function<void(RenderObject*,bool)> hoverFunc){
+     this->hoverFunction = hoverFunc;
 }
+
+//Changes texture rectangle of sprite
+void RenderObject::setTextureRect(std::string name, sf::IntRect textRect){
+    spriteMap.at(name).setTextureRect(textRect);
+
+}
+
+

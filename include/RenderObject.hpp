@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <utility>
-#include "RenderManager.hpp"
 #include <SFML/graphics.hpp>
+#include <functional>
 
 class RenderObject{
     public:
@@ -12,33 +12,39 @@ class RenderObject{
         virtual ~RenderObject();
 
         //Get & set sprite map
-        virtual std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>> getSpriteMap();
-        virtual void setSpriteMap(std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>> spriteMapIn);
+        virtual std::map<std::string,sf::Sprite> getSpriteMap();
+        virtual void setSpriteMap(std::map<std::string,sf::Sprite> spriteMapIn);
 
-        //Add sprite to map, sets iterator to null
+        //Add sprite to map, key:name
         virtual void addSprite(sf::Texture *textureIn, std::string name);
-
-        void updateSprite(std::string name, RenderManager* rendMgr);
 
         //Sets individual sprite position
         virtual void setSpritePosition(std::string name, float x, float y);
 
-        //Get & set real position
+        //Get & set object position
         virtual sf::IntRect getPos();
         virtual void setPos(sf::IntRect posIn);
 
-        //Set state to hovered
+        //Changes texture rectangle of sprite
+        virtual void setTextureRect(std::string name,sf::IntRect textRect);
+
+        //Changes hovered state
         virtual void setHovered(bool isHovered);
+
+        //Assign a function to be called when object is hovered
+        virtual void assignHoverFunction(std::function<void(RenderObject*,bool)> hoverFunc);
+
+        //Renders object
+        virtual void draw(sf::RenderWindow &window);
 
     protected:
 
     private:
 
-        sf::IntRect pos;
+        sf::IntRect pos; //Stores object position
+        std::map<std::string,sf::Sprite> spriteMap; //Key: name (e.g. "head") Value: sprite
 
-        std::map<std::string,std::pair<sf::Sprite,sf::Sprite*>> spriteMap;
-
-
+        std::function<void(RenderObject*,bool)> hoverFunction;
 
 };
 
