@@ -1,44 +1,68 @@
-#include "TextLogEntry.hpp"
+#include "TextLog.hpp"
 #include <iostream>
-TextLogEntry::TextLogEntry()
+TextLog::TextLog(int displayedLines)
 {
-
+    this->displayedLines = displayedLines;
+    for(int i = 0; i < displayedLines; i++){
+        sf::Text newText;
+        newText.setString(" ");
+        this->textVector.push_back(newText);
+    }
 }
 
-TextLogEntry::~TextLogEntry()
+TextLog::~TextLog()
 {
     //dtor
 }
 
-//void TextLogEntry::draw(sf::RenderWindow &window){
-//    for(sf::Text textLine : textVector){
-//        window.draw(textLine);
-//    }
-//}
+void TextLog::draw(sf::RenderWindow &window){
+
+    std::map<std::string,sf::Sprite>::iterator it;
+    for(it = spriteMap.begin(); it != spriteMap.end(); it++){
+        window.draw(it->second);
+    }
+
+    std::vector<sf::Text>::iterator texIt;
+    for(texIt = textVector.end() - displayedLines; texIt != textVector.end(); texIt++){
+        window.draw(*texIt);
+    }
+}
 
 
- void TextLogEntry::setFont(sf::Font* fontIn){
+ void TextLog::setFont(sf::Font* fontIn){
     this->textFont = *fontIn;
  }
 
 //Get and set field width
-void TextLogEntry::setFieldWidth(int fieldWidth){
+void TextLog::setFieldWidth(int fieldWidth){
     this->fieldWidth = fieldWidth;
 }
-int TextLogEntry::getFieldWidth(){
+int TextLog::getFieldWidth(){
     return fieldWidth;
 }
 
 //Adds text and fits to line width
-void TextLogEntry::addText(std::string textIn){
+void TextLog::addText(std::string textIn){
+    //Initialise newText object
     sf::Text newText;
     newText.setString(textIn);
     newText.setFont(textFont);
     newText.setFillColor(textColour);
     newText.setCharacterSize(textSize);
+    newText.setPosition(newLinePos);
 
-    if(fieldWidth > 0){
-        int lineWidth = newText.getGlobalBounds().width;
+        //Push up all lines
+        for(int i = 0; i < displayedLines; i++){
+            sf::Vector2f tempTextPos = textVector[textVector.size() - i].getPosition();
+            tempTextPos.y = tempTextPos.y - textSize;
+            textVector[textVector.size()-i].setPosition(tempTextPos);
+        }
+
+    int lineWidth = newText.getGlobalBounds().width;
+
+    if(fieldWidth > 0 && lineWidth > 0){
+
+
         if(fieldWidth < lineWidth){ //If length of line is larger than the text field begin cutting line
 
                 int charCount = textIn.length();
@@ -59,16 +83,30 @@ void TextLogEntry::addText(std::string textIn){
 
                 newOriginalLine = textIn.substr(0,lineBreakPos); //First line is equal everything before break
                 newText.setString(newOriginalLine);
+                std::cout << newText.getGlobalBounds().width << std::endl;
                 this->textVector.push_back(newText);
-                remainderLine = " " + textIn.substr(lineBreakPos, textIn.length()-1);
-
-               addText(remainderLine);
+                remainderLine = textIn.substr(lineBreakPos, textIn.length()-1);
+                this->lineCount ++;
+                addText(remainderLine);
 
         }else{
             this->textVector.push_back(newText);
         }
+    }else{
+            std::cout << "error in string" << std::endl;
+            return;
     }
 
 
 
+}
+
+//sets bottom left corner of where text will appear
+void TextLog::setNewLinePos(sf::Vector2f newLinePos){
+
+    this->newLinePos = newLinePos;
+}
+
+sf::Vector2f TextLog::getNewLinePos(){
+    return this->newLinePos;
 }

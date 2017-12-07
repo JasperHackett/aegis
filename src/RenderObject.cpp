@@ -7,6 +7,7 @@ RenderObject::RenderObject()
     //ctor
 }
 
+
 RenderObject::~RenderObject()
 {
     //dtor
@@ -37,18 +38,11 @@ sf::IntRect RenderObject::getPos(){
 void RenderObject::setPos(sf::IntRect posIn){
     this->pos = posIn;
 }
-
-void RenderObject::setHovered(bool isHovered){
-    if(hoverFunction != nullptr){
-       if(isHovered == true){
-            this->hoverFunction(this,true);
-        }else{
-            this->hoverFunction(this,false);
-        }
-    }
-
-
+void RenderObject::setPos(sf::Vector2i posInXY){
+    this->pos.top = posInXY.x;
+    this->pos.left = posInXY.y;
 }
+
 
 void RenderObject::draw(sf::RenderWindow &window){
     std::map<std::string,sf::Sprite>::iterator it;
@@ -58,15 +52,22 @@ void RenderObject::draw(sf::RenderWindow &window){
 
 }
 
-//Assign a function to be called when object is hovered
- void RenderObject::assignHoverFunction(std::function<void(RenderObject*,bool)> hoverFunc){
-     this->hoverFunction = hoverFunc;
-}
-
 //Changes texture rectangle of sprite
 void RenderObject::setTextureRect(std::string name, sf::IntRect textRect){
     spriteMap.at(name).setTextureRect(textRect);
 
 }
+
+//TEMPORARILY DISABLED IN ATTEMPT TO TEST THIS FUNCTION IN CLICKABLE CLASS
+////Set true when mouse hovers over an object, false when it hovers off of the object
+//void RenderObject::setHovered(bool setHovered){
+//    if(setHovered){
+//        std::cout << "Generic object hovered" << std::endl;
+//    }else{
+//       std::cout << "Object un-hovered" << std::endl;
+//    }
+//
+//}
+
 
 

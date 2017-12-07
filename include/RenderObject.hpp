@@ -21,30 +21,29 @@ class RenderObject{
         //Sets individual sprite position
         virtual void setSpritePosition(std::string name, float x, float y);
 
-        //Get & set object position
+        //Get & set object position and size
         virtual sf::IntRect getPos();
         virtual void setPos(sf::IntRect posIn);
+        virtual void setPos(sf::Vector2i posInXY); //Sets only X&Y position of object, does not change size
 
         //Changes texture rectangle of sprite
         virtual void setTextureRect(std::string name,sf::IntRect textRect);
 
-        //Changes hovered state
-        virtual void setHovered(bool isHovered);
-
-        //Assign a function to be called when object is hovered
-        virtual void assignHoverFunction(std::function<void(RenderObject*,bool)> hoverFunc);
 
         //Renders object
         virtual void draw(sf::RenderWindow &window);
 
-    protected:
+//        //Set true when mouse hovers over an object, false when it hovers off of the object
+//        virtual void setHovered(bool isHovered);
 
-    private:
 
         sf::IntRect pos; //Stores object position
         std::map<std::string,sf::Sprite> spriteMap; //Key: name (e.g. "head") Value: sprite
 
-        std::function<void(RenderObject*,bool)> hoverFunction;
+
+    protected:
+
+    private:
 
 };
 

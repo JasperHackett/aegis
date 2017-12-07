@@ -3,25 +3,26 @@
 
 
 #include <SFML/Graphics.hpp>
-#include <RenderManager.hpp>
-#include <TextureManager.hpp>
-#include <RenderObject.hpp>
 #include <ClickManager.hpp>
-#include <hoverFunctions.hpp>
 #include <iostream>
-#include <TextLogEntry.hpp>
-
-//Temporarily static values
-float resHeight = 900;
-float resWidth = 1600;
-bool fullscreen = false;
+#include <TextLog.hpp>
+#include <ObjectManager.hpp>
+#include <buttons.hpp>
+#include <Unit.hpp>
+//Constants
+float resHeight;
+float resWidth;
+bool fullscreen;
 sf::Vector2i mousePos;
 
 
 //Core UI data strctures
-TextureManager textureMgr;
-RenderManager renderMgr;
+ObjectManager objectMgr;
 ClickManager clickMgr;
+TextLog mainEventLog(6);
+
+
+//Other
 
 
 
