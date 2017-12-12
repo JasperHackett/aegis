@@ -3,12 +3,18 @@
 #include <iostream>
 #include <RenderObject.hpp>
 #include <TextLog.hpp>
+#include <ObjectManager.hpp>
+#include <ClickManager.hpp>
 
-class Clickable : public RenderObject
-{
+class Clickable : public RenderObject{
+
     public:
         Clickable();
         virtual ~Clickable();
+
+        /*Methods*/
+        // Constructer to assign pointers to ObjectMgr and ClickMgr
+        Clickable(ObjectManager* objectMgrIn, ClickManager* clickMgrIn);
 
         virtual void isClicked(bool toggleClick);
 
@@ -18,15 +24,28 @@ class Clickable : public RenderObject
         //Sets main text output for this instance of class
         virtual void setMainTextLog(TextLog* TextLogIn);
 
+        //virtual Clickable*
+
+
+        virtual void returnID(std::string actionID);
+
+        /*Variables*/
+        bool hasNestedClickable = false;
         bool clicked = false;
+        bool hovered = false;
+        bool hoverable = false;
 
         TextLog* mainTextLog;//Main destination for text outputs from this object
+        std::string actionID;
 
-        sf::IntRect reserveSpace; // Used for reserving space for objects created when this object is clicked or hovered
+        // Stores pointer to main object manager and main click manager
+        ObjectManager* objectMgrPtr;
+        ClickManager* clickMgrPtr;
 
     protected:
 
     private:
+
 };
 
 #endif // CLICKABLE_H

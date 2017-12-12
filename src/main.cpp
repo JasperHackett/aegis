@@ -27,10 +27,19 @@ int main(){
     objectMgr.addVisible(&mainEventLog);
 
 
-//TESTING CODE
+/*TESTING CODE*/
     objectMgr.loadTexture("startBtn","assets/startbtn.png");
+    objectMgr.loadTexture("exitBtn","assets/exitbtn.png");
     objectMgr.loadTexture("ranged","assets/rangedchar.png");
     objectMgr.loadTexture("abilityBtn","assets/abilitybutton.png");
+
+    ExitBtn exitBtn(&clickMgr);
+    exitBtn.addSprite(objectMgr.getTexture("exitBtn"),"button");
+    exitBtn.setSpritePosition("button",50,830);
+    exitBtn.setTextureRect("button",sf::IntRect(0,0,120,40));
+    exitBtn.setPos(sf::IntRect(50,830,156,40));
+    exitBtn.setMainTextLog(&mainEventLog);
+
 
 
     StartBtn startBtn;
@@ -40,29 +49,36 @@ int main(){
     startBtn.setPos(sf::IntRect(50,750,156,40));
     startBtn.setMainTextLog(&mainEventLog);
 
+
     Unit meleeChar(&objectMgr, &clickMgr);
+    meleeChar.hasNestedClickable = true; //Should not be defined here
     meleeChar.addSprite(objectMgr.getTexture("ranged"),"body");
     meleeChar.setSpritePosition("body",700,450);
     meleeChar.setPos(sf::IntRect(700,450,20,20));
     meleeChar.setMainTextLog(&mainEventLog);
-    //meleeChar.addSprite(objectMgr.getTexture("abilityBtn"),"abilityBtn");
     meleeChar.addMove(attack);
-    meleeChar.addMove(attack);
-    meleeChar.positionActions();
 
+   //Menu newMenu(&objectMgr,&clickMgr);
 
+//    testButton.setPos(sf::IntRect(0,500,122,32));
+//    testButton.addSprite(objectMgr.getTexture("abilityBtn"),"abilityBtn");
+//    testButton.setSpritePosition("abilityBtn",000,500);
+//    testButton.setTextureRect("abilityBtn",sf::IntRect(0,0,122,32));
 
     objectMgr.addVisible(&startBtn);
+    objectMgr.addVisible(&exitBtn);
     objectMgr.addVisible(&meleeChar);
 
+    clickMgr.setWindowPtr(&mainWindow);
     clickMgr.addObject(&startBtn);
     clickMgr.addObject(&meleeChar);
-    clickMgr.addObject(&meleeChar.attackButton);
+    clickMgr.addObject(&exitBtn);
+    //clickMgr.addObject(&meleeChar.attackButton);
 
 
 
 
-//END TESTING CODE
+/*END TESTING CODE*/
 
 
 

@@ -8,7 +8,6 @@ class AttackBtn : public Clickable{
 
 public:
 
-    sf::Text buttonText;
 
     AttackBtn(){}
     ~AttackBtn(){}
@@ -21,18 +20,22 @@ public:
     void isClicked(bool toggleClick){
 
         if(toggleClick){
-            //this->mainTextLog->addText("Attack Button Pressed");
             this->clicked = true;
         }else{
-            this->clicked =  false;
+            this->clicked = false;
+
+
             //Disable clicked properties
         }
 }
 
     void setHovered(bool setHovered){
         if(setHovered){
+            hovered = true;
+            std::cout << "calling remove Object" << std::endl;
             this->setTextureRect("abilityBtn",sf::IntRect(122,0,122,32));
         }else{
+            hovered = false;
             this->setTextureRect("abilityBtn",sf::IntRect(0,0,122,32));
 
         }

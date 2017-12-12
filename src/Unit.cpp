@@ -5,52 +5,55 @@ Unit::Unit()
     //ctor
 }
 
-Unit::Unit(ObjectManager* objectMgrIn, ClickManager* clickMgrIn){
-    this->objectMgrPtr = objectMgrIn;
-    this->clickMgrPtr = clickMgrIn;
-
-//    this->attackButton.addSprite(objectMgrPtr->getTexture("abilityBtn"),"abilityBtn");
-//    this->testAttackButton.addSprite(objectMgrPtr->getTexture("abilityBtn"),"abilityBtn");
-//    this->attackButton.setTextureRect("abilityBtn",sf::IntRect(0,0,122,32));
-//    this->testAttackButton.setTextureRect("abilityBtn",sf::IntRect(0,0,122,32));
-//
-//    this->attackButton.setMainTextLog(this->mainTextLog);
-//    this->testAttackButton.setMainTextLog(this->mainTextLog);
-//
-//    this->displayedActions[0] = &attackButton;
-//    this->displayedActions[1] = &testAttackButton;
-//
-//    this->reserveSpace = sf::IntRect(0,0,122,32);
-
-}
-
 
 Unit::~Unit()
 {
     //dtor
 }
 
+Unit::Unit(ObjectManager* objectMgrPtr, ClickManager* clickMgrPtr){
+    this->clickMgrPtr = clickMgrPtr;
+    this->objectMgrPtr = objectMgrPtr;
+}
 
+     //Called when object is clicked
 void Unit::isClicked(bool toggleClick){
+
+        std::list<AbilityButton>::iterator iterator;
         if(toggleClick){
-            this->reserveSpace = sf::IntRect(0,0,1200,1200);
+
+            //Read value into string and output to main text log
             std::string output;
             std::ostringstream str1;
             str1 << simpleAttack;
             output = str1.str();
             mainTextLog->addText(output);
+            //Reset string stream
             str1.str("");
             str1.clear();
-            this->clicked = true;
-            for(int i = 0; i < actionCount; i++){
-//                if(displayedActions[i] != nullptr){
-//                    clickMgrPtr->addObject(displayedActions[i]);
-//                    std::cout << "test" << std::endl;
-//                }
+
+            if(clicked == false){
+                for(iterator = displayedActions.begin(); iterator != displayedActions.end(); ++iterator){
+                        objectMgrPtr->addVisible(&*iterator);
+                        clickMgrPtr->addObject(&*iterator);
+                        clickMgrPtr->addNested(&*iterator);
+
+                }
             }
+
+            this->clicked = true;
 
         }else{
             this->clicked = false;
+
+            if(clicked == false){
+
+                for(iterator = displayedActions.begin(); iterator != displayedActions.end(); ++iterator){
+                    iterator->rendered = false;
+                }
+                objectMgrPtr->removeObjects();
+            }
+
 
         }
 }
@@ -60,48 +63,41 @@ void Unit::draw(sf::RenderWindow &window){
     for(it = spriteMap.begin(); it != spriteMap.end(); it++){
         window.draw(it->second);
     }
-    /*
-        NOTE that this implementation where each unit checks if clicked on each draw call is inefficient,
-        ideally implement this in ClickManager (this implementation makes multi-click objects simpler)
-    */
-    if(clicked){
-        for(int i = 0; i < actionCount; i++){
-            if(displayedActions[i] != nullptr){
-                displayedActions[i]->draw(window);
-            }
-        }
-    }
-
 }
 
 
 
-
+//Distributes the action buttons evenly adjacent to the characters position.
 void Unit::positionActions(){
 
     int startingY = this->getPos().top - (this->actionCount*32)/2;
 
-    for(int i = 0; i < this->actionCount; i++){
-        displayedActions[i]->setPos(sf::IntRect(this->getPos().left + 40,startingY + 32*i,122,32));
-        displayedActions[i]->setSpritePosition("abilityBtn",this->getPos().left + 40,startingY + 32*i);
+    std::list<AbilityButton>::iterator iterator;
+
+    int i = 0;
+    for(iterator = displayedActions.begin(); iterator != displayedActions.end(); ++iterator){
+        iterator->setPos(sf::IntRect(this->getPos().left + 40,startingY + 32*i,122,32));
+        iterator->setSpritePosition("abilityBtn",this->getPos().left + 40,startingY + 32*i);
+        iterator->setTextureRect("abilityBtn",sf::IntRect(0,0,122,32));
+        i++;
     }
-
-
 
 }
 
 //Adds a move to displayedActions
 void Unit::addMove(actions actionTypeIn){
-    this->actionCount ++;
 
+    AbilityButton attackButton("test",objectMgrPtr,"Attack");
+
+    this->actionCount ++;
 
     switch(actionTypeIn){
 
         case attack :
-            this->attackButton.addSprite(objectMgrPtr->getTexture("abilityBtn"),"abilityBtn");
-            this->attackButton.setTextureRect("abilityBtn",sf::IntRect(0,0,122,32));
-            this->attackButton.setMainTextLog(this->mainTextLog);
-            this->displayedActions.insert(std::pair<actions,Clickable*>(actionTypeIn&attackButton));
+            attackButton.addSprite(objectMgrPtr->getTexture("abilityBtn"),"abilityBtn");
+            attackButton.setTextureRect("abilityBtn",sf::IntRect(0,0,122,32));
+            this->displayedActions.push_back(attackButton);
+
             break;
 
         default :
@@ -110,7 +106,10 @@ void Unit::addMove(actions actionTypeIn){
 
     }
 
+    positionActions();
+
 }
+//Adds a move to displayedActions defining the label
 void Unit::addMove(actions actionTypeIn, std::string label){
 
 

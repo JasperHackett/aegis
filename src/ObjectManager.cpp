@@ -1,5 +1,5 @@
 #include <ObjectManager.hpp>
-
+#include <iostream>
 
 ObjectManager::ObjectManager(){
     //ctor
@@ -12,16 +12,13 @@ ObjectManager::~ObjectManager(){
 
 //Iterates through visibleObjects drawing each object to window (using SFML draw call)
 void ObjectManager::render(sf::RenderWindow &window){
-
     for(RenderObject *object : visibleObjects){
         object->draw(window);
-
     }
-
-
 }
 //Adds instance of RenderObject class to visibleObjects
 void ObjectManager::addVisible(RenderObject* objectIn){
+    objectIn->rendered = true;
     this->visibleObjects.push_back(objectIn);
 }
 
@@ -55,3 +52,25 @@ sf::Font *ObjectManager::getFont(const std::string& name){
     sf::Font* fontPtr = &this->fontMap.at(name);
     return fontPtr;
 }
+
+
+
+//Removes objects from visibleObjects
+void ObjectManager::removeObjects(){
+    std::cout << "calling remove Object" << std::endl; //TESTING
+//    this->visibleObjects.erase(std::remove(visibleObjects.begin(),visibleObjects.end(),objectToBeRemoved), visibleObjects.end());
+
+    std::vector<RenderObject*> newVisibleObjects;
+
+    std::vector<RenderObject*>::iterator iter;
+    for(iter = visibleObjects.begin(); iter != visibleObjects.end(); ++iter){
+        if((*iter)->rendered){
+            newVisibleObjects.push_back(*iter);
+        }
+    }
+
+    visibleObjects = newVisibleObjects;
+
+
+}
+

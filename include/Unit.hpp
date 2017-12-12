@@ -1,54 +1,48 @@
 #ifndef UNIT_H
 #define UNIT_H
 
-#include <Clickable.hpp>
-#include <ClickManager.hpp>
+
+#include <buttons.hpp>
 #include <sstream>
 #include <string>
 #include <buttons.hpp>
-#include <ObjectManager.hpp>
-#include <ClickManager.hpp>
 #include <list>
+#include <Clickable.hpp>
+
+
 
 class Unit : public Clickable
 {
+
     public:
         Unit();
-        Unit(ObjectManager *objectMgrIn, ClickManager *clickMgrIn); // Constructer to assign pointers to ObjectMgr and ClickMgr
+        Unit(ObjectManager* objectMgrPtr, ClickManager* clickMgrPtr);
         virtual ~Unit();
 
-
+        //Called when objects click state changes, true for clicked, false for disable clicked
         virtual void isClicked(bool toggleClick);
 
-
-
-    //MEANT FOR TRANSFER TO CHARACTER CLASS
+        //Adds a move to displayedActions
         virtual void addMove(actions actionTypeIn);
+        //Adds a move to displayedActions defining the label
         virtual void addMove(actions actionTypeIn, std::string label);
 
+        //Re-declaration of draw method
         void draw(sf::RenderWindow &window);
 
-        int actionCount = 0; //How many actions this unit can take
-        std::list<std::pair<actions,Clickable*>> displayedActions; // Stores visible action buttons (actions = {attack,block,stance,movepos,item,special})
-
+        //Distributes the action buttons evenly adjacent to the characters position.
         virtual void positionActions();
 
-
-        actions actionType;
-
-        AttackBtn attackButton;
-        AttackBtn testAttackButton;
-
-
+        std::list<AbilityButton> displayedActions; // Stores visible action buttons (actions = {attack,block,stance,movepos,item,special})
+        int actionCount = 0; //How many actions this unit can take
+        actions actionType; //actions = {attack,block,stance,movepos,item,special}
+        bool hasNestedClickables = true; //true if this object has multiple click options
 
         //Unit stats
         int health = 10;
-        int simpleAttack = 5;
+        int simpleAttack = 5; /*testing*/
 
 
-        sf::Sprite abilityBtnSprite;
-        ObjectManager* objectMgrPtr; // Stores pointer to main object manager
-        ClickManager* clickMgrPtr;
 
 
     protected:

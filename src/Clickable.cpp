@@ -1,14 +1,14 @@
 #include "Clickable.hpp"
+#include <ClickManager.hpp>
 #include <iostream>
 
-Clickable::Clickable()
-{
-    //ctor
-}
+Clickable::Clickable(){}
+Clickable::~Clickable(){}
 
-Clickable::~Clickable()
-{
-    //dtor
+// Constructer to assign pointers to ObjectMgr and ClickMgr
+Clickable::Clickable(ObjectManager* objectMgrIn, ClickManager* clickMgrIn){
+            this->objectMgrPtr = objectMgrIn;
+            this->clickMgrPtr = clickMgrIn;
 }
 
 //Assign main text log pointer
@@ -32,10 +32,15 @@ void Clickable::isClicked(bool toggleClick){
 ////Set true when mouse hovers over an object, false when it hovers off of the object
 void Clickable::setHovered(bool setHovered){
     if(setHovered){
+        hovered = true;
         std::cout << "Generic object hovered" << std::endl;
     }else{
+        hovered = false;
        std::cout << "Object un-hovered" << std::endl;
     }
 
 }
 
+void Clickable::returnID(std::string actionID){
+    std::cout << "returned ID" << std::endl;
+}

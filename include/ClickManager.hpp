@@ -1,9 +1,10 @@
 #ifndef CLICKMANAGER_H
 #define CLICKMANAGER_H
 
-    #include "Clickable.hpp"
     #include <SFML/graphics.hpp>
     #include <map>
+
+class Clickable; //Forward declaration
 
 class ClickManager
 {
@@ -13,22 +14,41 @@ class ClickManager
 
         //Adds object to vector of objects that interact with the mouse (hovering & clicking)
         virtual void addObject(Clickable* objectIn);
+
+        //Removes object from visibleObjects
+        virtual void removeObject(Clickable* objectToBeRemoved);
+
+        //Called each frame to check if the mouse position is inside the bounds of any visibleObject
         virtual void checkHover(sf::Vector2i mousePos);
 
-        //True when left mouse is pressed. False when released
-        void leftMouseClick(bool mouseDown);
+        //Called when a left mouse event occurs. True when left mouse is pressed, false when released
+        virtual void leftMouseClick(bool mouseDown);
+
+        //Checks the nestedObject vector for a click
+        virtual bool checkNested();
+
+        virtual void addNested(Clickable* objectIn);
+
+        //Receives value from nested object and passes it to parent
+        virtual void returnNestedValue(std::string valueIn);
+
+        virtual void setWindowPtr(sf::RenderWindow* window);
+
+        virtual void exitGame();
 
     protected:
 
     private:
         bool somethingHovered = false;
+        sf::RenderWindow* windowPtr;
         sf::Vector2i mousePos;
         Clickable* hoveredObject = nullptr;
         Clickable* mousePressedObject = nullptr;
         Clickable* clickedObject = nullptr;
+        Clickable* parentObject = nullptr; //Stores the parent of an object with nested clicks.
         std::vector<Clickable*> visibleObjects;
-        sf::IntRect reserveSpace; /*When an object is clicked that creates further click options this stores the area in which
-        those options appear (e.g When using character ability the areea with actions */
+
+        std::vector<Clickable*> nestedObjects; //Stores objects nested in another object
 };
 
 #endif // CLICKMANAGER_H

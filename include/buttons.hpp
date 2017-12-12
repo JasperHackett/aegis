@@ -2,11 +2,14 @@
 #ifndef BUTTONS_H
 #define BUTTONS_H
 
-
+enum actions {attack,block,stance,movepos,item,special};
 
 #include<buttons/StartBtn.cpp>
 #include<buttons/AttackBtn.cpp>
-   enum actions {attack,block,stance,movepos,item,special};
+#include<buttons/ExitBtn.cpp>
+#include<buttons/AbilityButton.hpp>
+
+
 
 
 

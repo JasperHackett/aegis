@@ -36,7 +36,7 @@ class RenderObject{
 //        //Set true when mouse hovers over an object, false when it hovers off of the object
 //        virtual void setHovered(bool isHovered);
 
-
+        bool rendered = false;
         sf::IntRect pos; //Stores object position
         std::map<std::string,sf::Sprite> spriteMap; //Key: name (e.g. "head") Value: sprite
 

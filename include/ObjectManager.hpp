@@ -30,6 +30,12 @@ class ObjectManager{
         sf::Texture* getTexture(const std::string& name);
 
 
+        //Removes all objects marked for removal and resizes vector
+        virtual void removeObjects();
+
+
+
+
     protected:
 
     private:

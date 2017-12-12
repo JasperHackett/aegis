@@ -23,9 +23,9 @@ void TextLog::draw(sf::RenderWindow &window){
     }
 
     std::vector<sf::Text>::iterator texIt;
-    for(texIt = textVector.end() - displayedLines; texIt != textVector.end(); texIt++){
-        window.draw(*texIt);
-    }
+//    for(texIt = textVector.end() - displayedLines; texIt != textVector.end(); texIt++){
+////                window.draw(*texIt);
+//    }
 }
 
 

@@ -9,6 +9,7 @@
 #include <ObjectManager.hpp>
 #include <buttons.hpp>
 #include <Unit.hpp>
+#include <Menu.hpp>
 //Constants
 float resHeight;
 float resWidth;
