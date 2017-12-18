@@ -21,76 +21,117 @@ int main(){
     objectMgr.loadFont("trebuc","assets/trebuc.ttf");
 
     //Message log initialisation
-    mainEventLog.setFieldWidth(400);
+    mainEventLog.setFieldWidth(600);
     mainEventLog.setFont(objectMgr.getFont("trebuc"));
     mainEventLog.setNewLinePos(sf::Vector2f(350,850));
     objectMgr.addVisible(&mainEventLog);
 
-
-/*TESTING CODE*/
+    //Loading textures from files into class ObjectManager
     objectMgr.loadTexture("startBtn","assets/startbtn.png");
     objectMgr.loadTexture("exitBtn","assets/exitbtn.png");
     objectMgr.loadTexture("ranged","assets/rangedchar.png");
     objectMgr.loadTexture("abilityBtn","assets/abilitybutton.png");
+    objectMgr.loadTexture("meleeUnit","assets/meleechar1.png");
+    objectMgr.loadTexture("frog","assets/frog.png");
+    objectMgr.loadTexture("bluering","assets/bluering.png");
+    objectMgr.loadTexture("background","assets/Stagetest.png");
+    objectMgr.loadTexture("rings","assets/coloured_rings.png");
+    objectMgr.loadTexture("healthbar","assets/health_fill.png");
+    objectMgr.loadTexture("healthoutline","assets/health_outline.png");
 
-    ExitBtn exitBtn(&clickMgr);
+/*TESTING CODE*/
+
+
+
+    RenderObject background;
+    background.addSprite(objectMgr.getTexture("background"),"background");
+
+
+    GenericBtn exitBtn(&clickMgr,"exit");
     exitBtn.addSprite(objectMgr.getTexture("exitBtn"),"button");
     exitBtn.setSpritePosition("button",50,830);
     exitBtn.setTextureRect("button",sf::IntRect(0,0,120,40));
-    exitBtn.setPos(sf::IntRect(50,830,156,40));
+    exitBtn.setPos(sf::IntRect(50,830,120,40));
     exitBtn.setMainTextLog(&mainEventLog);
+    exitBtn.setDefaultPos(sf::IntRect(0,0,120,40));
+    exitBtn.setHoverValue(sf::IntRect(120,0,120,40));
 
 
 
-    StartBtn startBtn;
+    GenericBtn startBtn(&clickMgr,"start");
     startBtn.addSprite(objectMgr.getTexture("startBtn"),"button");
     startBtn.setSpritePosition("button",50,750);
     startBtn.setTextureRect("button",sf::IntRect(0,0,156,40));
     startBtn.setPos(sf::IntRect(50,750,156,40));
     startBtn.setMainTextLog(&mainEventLog);
+    startBtn.setDefaultPos(sf::IntRect(0,0,156,40));
+    startBtn.setHoverValue(sf::IntRect(156,0,156,40));
 
-
-    Unit meleeChar(&objectMgr, &clickMgr);
-    meleeChar.hasNestedClickable = true; //Should not be defined here
-    meleeChar.addSprite(objectMgr.getTexture("ranged"),"body");
-    meleeChar.setSpritePosition("body",700,450);
-    meleeChar.setPos(sf::IntRect(700,450,20,20));
-    meleeChar.setMainTextLog(&mainEventLog);
-    meleeChar.addMove(attack);
-
-   //Menu newMenu(&objectMgr,&clickMgr);
-
-//    testButton.setPos(sf::IntRect(0,500,122,32));
-//    testButton.addSprite(objectMgr.getTexture("abilityBtn"),"abilityBtn");
-//    testButton.setSpritePosition("abilityBtn",000,500);
-//    testButton.setTextureRect("abilityBtn",sf::IntRect(0,0,122,32));
 
     objectMgr.addVisible(&startBtn);
     objectMgr.addVisible(&exitBtn);
-    objectMgr.addVisible(&meleeChar);
 
     clickMgr.setWindowPtr(&mainWindow);
     clickMgr.addObject(&startBtn);
-    clickMgr.addObject(&meleeChar);
     clickMgr.addObject(&exitBtn);
-    //clickMgr.addObject(&meleeChar.attackButton);
+
 
 
 
 
 /*END TESTING CODE*/
 
-
-
-
+    gameStates existingGameState = menu;
     //Main frame loop
     while (mainWindow.isOpen()){
+
+        //CHECK IF GAME STATE HAS CHANGED - GameStates: {menu,playing,options,exiting}
+        if(clickMgr.currentGameState != existingGameState){
+            switch(clickMgr.currentGameState){
+            //Change game state
+            case(menu) :
+                if(startBtn.rendered == false){
+                    objectMgr.addVisible(&exitBtn);
+                    objectMgr.addVisible(&startBtn);
+                }
+                if(startBtn.hovered == false){
+                    clickMgr.addObject(&exitBtn);
+                    clickMgr.addObject(&startBtn);
+
+                }
+                break;
+            case(playing) :
+                mainEventLog.addText("Game starting...");
+                objectMgr.addVisible(&background,false);
+                startBtn.rendered = false;
+                startBtn.hoverable = false;
+                exitBtn.rendered = false;
+                exitBtn.hoverable = false;
+                objectMgr.removeObjects();
+                clickMgr.removeObject(&startBtn);
+                clickMgr.removeObject(&exitBtn);
+                break;
+            case(options) :
+
+                break;
+            case(exiting):
+                break;
+
+            default :
+                 break;
+
+
+            }
+            existingGameState = clickMgr.currentGameState;
+        }
 
         mousePos = sf::Mouse::getPosition(mainWindow);
         clickMgr.checkHover(mousePos);
 
         sf::Event event;
         while (mainWindow.pollEvent(event)){
+
+
 
             switch(event.type){
 

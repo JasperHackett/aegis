@@ -4,23 +4,28 @@
 
 #include <SFML/Graphics.hpp>
 #include <ClickManager.hpp>
+#include <RenderObject.hpp>
 #include <iostream>
 #include <TextLog.hpp>
 #include <ObjectManager.hpp>
-#include <buttons.hpp>
-#include <Unit.hpp>
-#include <Menu.hpp>
+#include <global.hpp>
+//#include <GameController.hpp>
 //Constants
 float resHeight;
 float resWidth;
 bool fullscreen;
+
 sf::Vector2i mousePos;
 
+//Core game manager.
 
 //Core UI data strctures
+TextLog mainEventLog(10);
 ObjectManager objectMgr;
-ClickManager clickMgr;
-TextLog mainEventLog(6);
+GameController gameControl(&objectMgr, &mainEventLog);
+ClickManager clickMgr(&gameControl);
+
+
 
 
 //Other

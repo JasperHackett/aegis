@@ -1,6 +1,5 @@
 #include "ClickManager.hpp"
 #include <iostream>
-#include <Clickable.hpp>
 
 ClickManager::ClickManager()
 {
@@ -15,7 +14,9 @@ void ClickManager::setWindowPtr(sf::RenderWindow* window){
     this->windowPtr = window;
 }
 
-
+ClickManager::ClickManager(GameController* gameMgrPtr){
+    this->gameMgrPtr = gameMgrPtr;
+}
 
 //Adds object to vector of objects that interact with the mouse (hovering & clicking)
 void ClickManager::addObject(Clickable* objectIn){
@@ -116,8 +117,8 @@ void ClickManager::leftMouseClick(bool mouseDown){
                             //Call on the Clickable to check if mousePRessedObject points to an object nested within it
                             parentObject = clickedObject;
                             if(this->checkNested()){
-                                parentObject->isClicked(false);
-                                parentObject->returnID(mousePressedObject->actionID);
+                                clickedObject->isClicked(false);
+                                sendMove(mousePressedObject->returnID());
                                 parentObject = nullptr;
                                 clickedObject = nullptr;
 
@@ -182,11 +183,45 @@ bool ClickManager::checkNested(){
 
 void ClickManager::returnNestedValue(std::string valueIn){
         parentObject->isClicked(false);
-        parentObject->returnID(valueIn);
+        //sendMove(parentObject->returnID(valueIn);
 }
 
 void ClickManager::exitGame(){
     windowPtr->close();
 }
+
+void ClickManager::startGame(){
+    gameMgrPtr->startGame(this);
+    currentGameState = playing;
+}
+
+void ClickManager::sendGameMgr(std::string data){
+//    gameMgrPtr->sendMove
+
+}
+
+void ClickManager::sendMove(std::string moveIn){
+    std::cout <<"test " <<std::endl;
+    if(moveIn == "exit"){
+        exitGame();
+    }
+    if(moveIn == "start"){
+            std::cout <<"test " << std::endl;
+
+        startGame();
+
+    }
+    if(moveIn == "atk_generic"){
+
+        //parentObject->
+
+         /*This function needs to pass the target and the caster*/
+        gameMgrPtr->sendTurn(true,"frog","atk_generic");
+
+    }
+
+}
+
+
 
 

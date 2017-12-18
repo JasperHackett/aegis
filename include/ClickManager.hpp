@@ -1,15 +1,24 @@
 #ifndef CLICKMANAGER_H
 #define CLICKMANAGER_H
 
+    #include <global.hpp>
     #include <SFML/graphics.hpp>
+    #include <Clickable.hpp>
+    #include <Game.hpp>
     #include <map>
+    #include <buttons/GenericBtn.hpp>
+    #include <GameController.hpp>
+
 
 class Clickable; //Forward declaration
+class Game;
+class GameController;
 
 class ClickManager
 {
     public:
         ClickManager();
+        ClickManager(GameController* gameMgrPtr);
         virtual ~ClickManager();
 
         //Adds object to vector of objects that interact with the mouse (hovering & clicking)
@@ -34,21 +43,39 @@ class ClickManager
 
         virtual void setWindowPtr(sf::RenderWindow* window);
 
+        virtual void sendGameMgr(std::string data);
+        virtual void sendMove(std::string moveIn);
+
+
+        virtual void startGame();
         virtual void exitGame();
+        gameStates currentGameState;
 
     protected:
 
     private:
-        bool somethingHovered = false;
+        std::vector<Clickable*> visibleObjects;  //Stores all objects with hover properties
+        std::vector<Clickable*> nestedObjects; //Stores objects nested in another objec
+
+        bool somethingHovered = false; //True if mouse is hovering over an object in visibleObjects/nestedObjects vector
+
+        sf::Vector2i mousePos; //mouse position updated each frame
+
+        GameController *gameMgrPtr;
+        Game* activeGame; //Stores a ptr to the active game
         sf::RenderWindow* windowPtr;
-        sf::Vector2i mousePos;
+
+        //Stores active object in several states. (mousePressedObject is an object that has been pressed but not released on)
         Clickable* hoveredObject = nullptr;
         Clickable* mousePressedObject = nullptr;
         Clickable* clickedObject = nullptr;
-        Clickable* parentObject = nullptr; //Stores the parent of an object with nested clicks.
-        std::vector<Clickable*> visibleObjects;
 
-        std::vector<Clickable*> nestedObjects; //Stores objects nested in another object
+
+
+        Clickable* parentObject = nullptr; //Stores the parent of an object with nested clicks.
+
+
+
 };
 
 #endif // CLICKMANAGER_H

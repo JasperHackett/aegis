@@ -41,6 +41,7 @@ void Clickable::setHovered(bool setHovered){
 
 }
 
-void Clickable::returnID(std::string actionID){
-    std::cout << "returned ID" << std::endl;
+std::string Clickable::returnID(){
+    return actionID;
 }
+

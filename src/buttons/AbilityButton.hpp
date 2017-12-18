@@ -2,17 +2,15 @@
 #define ABILITYBUTTON_HPP
 
 #include <Clickable.hpp>
-#include <TextLog.hpp>
+#include <ObjectManager.hpp>
 
 class AbilityButton : public Clickable
 {
     public:
         AbilityButton();
-        AbilityButton(std::string actionID, ObjectManager* objectManagerPtr,std::string btnLabel);
+        AbilityButton(std::string actionID, ObjectManager* objectManagerPtr,std::string labelText);
         virtual ~AbilityButton();
 
-
-        TextLog btnLabel = {5};
         virtual void setHovered(bool setHovered);
 
         virtual std::string returnID();

@@ -21,6 +21,16 @@ void ObjectManager::addVisible(RenderObject* objectIn){
     objectIn->rendered = true;
     this->visibleObjects.push_back(objectIn);
 }
+void ObjectManager::addVisible(RenderObject* objectIn, bool backOfVector){
+    if(backOfVector){
+        objectIn->rendered = true;
+        this->visibleObjects.push_back(objectIn);
+    }else{
+        objectIn->rendered = true;
+        visibleObjects.push_back(*visibleObjects.begin());
+        visibleObjects.insert(visibleObjects.begin(),objectIn);
+    }
+}
 
 
 //Load a texture from file and insert into textureMap with name as key
@@ -57,7 +67,6 @@ sf::Font *ObjectManager::getFont(const std::string& name){
 
 //Removes objects from visibleObjects
 void ObjectManager::removeObjects(){
-    std::cout << "calling remove Object" << std::endl; //TESTING
 //    this->visibleObjects.erase(std::remove(visibleObjects.begin(),visibleObjects.end(),objectToBeRemoved), visibleObjects.end());
 
     std::vector<RenderObject*> newVisibleObjects;

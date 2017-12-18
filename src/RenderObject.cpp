@@ -19,6 +19,17 @@ void RenderObject::addSprite(sf::Texture *textureIn, std::string name){
     this->spriteMap.insert(std::pair<std::string,sf::Sprite>(name,newSprite));
 
 }
+void RenderObject::addText(sf::Font* fontPtr, std::string name,std::string content, sf::Color colourIn, int sizeIn){
+    sf::Text newText;
+    newText.setFont(*fontPtr);
+    newText.setColor(colourIn);
+    newText.setCharacterSize(sizeIn);
+    newText.setString(content);
+    this->textMap.insert(std::pair<std::string,sf::Text>(name,newText));
+}
+int RenderObject::getTextWidth(std::string key){
+    return textMap.at(key).getGlobalBounds().width;
+}
 
 std::map<std::string,sf::Sprite> RenderObject::getSpriteMap(){
     return spriteMap;
@@ -30,6 +41,9 @@ void RenderObject::setSpriteMap(std::map<std::string,sf::Sprite> spriteMapIn){
 
 void RenderObject::setSpritePosition(std::string name, float x, float y){
     spriteMap.at(name).setPosition(x,y);
+}
+void RenderObject::setTextPosition(std::string name, float x, float y){
+    textMap.at(name).setPosition(x,y);
 }
 
 sf::IntRect RenderObject::getPos(){
@@ -50,6 +64,10 @@ void RenderObject::draw(sf::RenderWindow &window){
         window.draw(it->second);
     }
 
+    std::map<std::string,sf::Text>::iterator it2;
+    for(it2 = textMap.begin(); it2 != textMap.end(); it2++){
+        window.draw(it2->second);
+    }
 }
 
 //Changes texture rectangle of sprite

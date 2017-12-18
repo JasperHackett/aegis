@@ -23,9 +23,9 @@ void TextLog::draw(sf::RenderWindow &window){
     }
 
     std::vector<sf::Text>::iterator texIt;
-//    for(texIt = textVector.end() - displayedLines; texIt != textVector.end(); texIt++){
-////                window.draw(*texIt);
-//    }
+    for(texIt = textVector.end() - displayedLines; texIt != textVector.end(); texIt++){
+                window.draw(*texIt);
+    }
 }
 
 
@@ -83,7 +83,7 @@ void TextLog::addText(std::string textIn){
 
                 newOriginalLine = textIn.substr(0,lineBreakPos); //First line is equal everything before break
                 newText.setString(newOriginalLine);
-                std::cout << newText.getGlobalBounds().width << std::endl;
+                std::cout << newText.getGlobalBounds().width << std::endl; //TESTING
                 this->textVector.push_back(newText);
                 remainderLine = textIn.substr(lineBreakPos, textIn.length()-1);
                 this->lineCount ++;

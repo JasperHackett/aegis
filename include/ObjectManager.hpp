@@ -2,7 +2,6 @@
 #define OBJECTMANAGER_H
 
 #include <SFML/Graphics.hpp>
-#include <ObjectManager.hpp>
 #include <RenderObject.hpp>
 
 class ObjectManager{
@@ -15,6 +14,7 @@ class ObjectManager{
 
         //Adds instance of RenderObject class to visibleObjects
         void addVisible(RenderObject* renderObjectIn);
+        void addVisible(RenderObject* objectIn, bool backOfVector);
 
         //Load a texture from file and insert into textureMap with name as key
         void loadTexture(const std::string &name, const std::string &filename);

@@ -14,12 +14,8 @@ AbilityButton::~AbilityButton()
 AbilityButton::AbilityButton(std::string actionID, ObjectManager* objectMgrPtr, std::string labelText){
     this->objectMgrPtr = objectMgrPtr;
 
-    btnLabel.setFont(objectMgrPtr->getFont("trebuc"));
-    btnLabel.setFieldWidth(120);
-    btnLabel.setNewLinePos(sf::Vector2f(500,500));
-    btnLabel.addText(labelText);
+    this->addText(objectMgrPtr->getFont("trebuc"),"labelText",labelText,sf::Color::Black,16);
 
-    objectMgrPtr->addVisible(&btnLabel);
     this->actionID = actionID;
 
 }

@@ -1,10 +1,13 @@
 #ifndef CLICKABLE_H
 #define CLICKABLE_H
+
 #include <iostream>
 #include <RenderObject.hpp>
 #include <TextLog.hpp>
-#include <ObjectManager.hpp>
-#include <ClickManager.hpp>
+
+//
+class ObjectManager;
+class ClickManager;
 
 class Clickable : public RenderObject{
 
@@ -24,10 +27,10 @@ class Clickable : public RenderObject{
         //Sets main text output for this instance of class
         virtual void setMainTextLog(TextLog* TextLogIn);
 
-        //virtual Clickable*
+        //Called when this clickable requires you to select another object (e.g. A unit choosing an enemy to attack)
+        //virtual std::string targetObject();
 
-
-        virtual void returnID(std::string actionID);
+        virtual std::string returnID();
 
         /*Variables*/
         bool hasNestedClickable = false;
