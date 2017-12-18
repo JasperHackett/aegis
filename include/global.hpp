@@ -4,7 +4,7 @@
 
 
 
-    enum gameStates{menu,playing,options,exiting};
+    enum gameStates{menu,combat,board,options,exiting};
     static gameStates currentGameState;
 
 

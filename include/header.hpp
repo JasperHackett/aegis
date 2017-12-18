@@ -22,8 +22,10 @@ sf::Vector2i mousePos;
 //Core UI data strctures
 TextLog mainEventLog(10);
 ObjectManager objectMgr;
-GameController gameControl(&objectMgr, &mainEventLog);
-ClickManager clickMgr(&gameControl);
+//GameController gameControl(&objectMgr, &mainEventLog);
+BoardController boardControl(&objectMgr,&mainEventLog);
+
+ClickManager clickMgr(&boardControl);
 
 
 

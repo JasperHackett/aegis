@@ -1,15 +1,6 @@
 #include <header.hpp>
 
 
-/* TO DO
-    - Click on unit and then click on action
-    - Action Buttons with text
-
-
-
-*/
-
-
 
 int main(){
     resHeight = 1600;
@@ -38,14 +29,13 @@ int main(){
     objectMgr.loadTexture("rings","assets/coloured_rings.png");
     objectMgr.loadTexture("healthbar","assets/health_fill.png");
     objectMgr.loadTexture("healthoutline","assets/health_outline.png");
+    objectMgr.loadTexture("combatBtn","assets/combatbtn.png");
 
 /*TESTING CODE*/
 
 
-
     RenderObject background;
     background.addSprite(objectMgr.getTexture("background"),"background");
-
 
     GenericBtn exitBtn(&clickMgr,"exit");
     exitBtn.addSprite(objectMgr.getTexture("exitBtn"),"button");
@@ -56,24 +46,32 @@ int main(){
     exitBtn.setDefaultPos(sf::IntRect(0,0,120,40));
     exitBtn.setHoverValue(sf::IntRect(120,0,120,40));
 
-
-
     GenericBtn startBtn(&clickMgr,"start");
     startBtn.addSprite(objectMgr.getTexture("startBtn"),"button");
-    startBtn.setSpritePosition("button",50,750);
+    startBtn.setSpritePosition("button",50,670);
     startBtn.setTextureRect("button",sf::IntRect(0,0,156,40));
-    startBtn.setPos(sf::IntRect(50,750,156,40));
+    startBtn.setPos(sf::IntRect(50,670,156,40));
     startBtn.setMainTextLog(&mainEventLog);
     startBtn.setDefaultPos(sf::IntRect(0,0,156,40));
     startBtn.setHoverValue(sf::IntRect(156,0,156,40));
 
+    GenericBtn combatBtn(&clickMgr,"combat");
+    combatBtn.addSprite(objectMgr.getTexture("combatBtn"),"button");
+    combatBtn.setSpritePosition("button",50,750);
+    combatBtn.setTextureRect("button",sf::IntRect(0,0,203,40));
+    combatBtn.setPos(sf::IntRect(50,750,203,40));
+    combatBtn.setMainTextLog(&mainEventLog);
+    combatBtn.setDefaultPos(sf::IntRect(0,0,203,40));
+    combatBtn.setHoverValue(sf::IntRect(203,0,203,40));
 
     objectMgr.addVisible(&startBtn);
     objectMgr.addVisible(&exitBtn);
+    objectMgr.addVisible(&combatBtn);
 
     clickMgr.setWindowPtr(&mainWindow);
     clickMgr.addObject(&startBtn);
     clickMgr.addObject(&exitBtn);
+    clickMgr.addObject(&combatBtn);
 
 
 
@@ -100,16 +98,26 @@ int main(){
 
                 }
                 break;
-            case(playing) :
-                mainEventLog.addText("Game starting...");
+            case(combat) :
+
                 objectMgr.addVisible(&background,false);
+
+                break;
+
+            case(board):
+                mainEventLog.addText("Game starting...");
                 startBtn.rendered = false;
                 startBtn.hoverable = false;
                 exitBtn.rendered = false;
                 exitBtn.hoverable = false;
-                objectMgr.removeObjects();
+
                 clickMgr.removeObject(&startBtn);
                 clickMgr.removeObject(&exitBtn);
+                combatBtn.rendered = false;
+                combatBtn.hoverable = false;
+                clickMgr.removeObject(&combatBtn);
+                objectMgr.removeObjects();
+
                 break;
             case(options) :
 
