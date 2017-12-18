@@ -14,8 +14,12 @@ void ClickManager::setWindowPtr(sf::RenderWindow* window){
     this->windowPtr = window;
 }
 
+<<<<<<< HEAD
 ClickManager::ClickManager(GameController* gameMgrPtr, BoardController* boardMgrPtr){
     this->gameMgrPtr = gameMgrPtr;
+=======
+ClickManager::ClickManager(BoardController* boardMgrPtr){
+>>>>>>> 5ab01b6a44594a9c060eae5a5931b1b6a356bc9c
     this->boardMgrPtr = boardMgrPtr;
 }
 
@@ -24,6 +28,7 @@ void ClickManager::addObject(Clickable* objectIn){
     objectIn->hoverable = true;
     visibleObjects.push_back(objectIn);
 }
+
 //Removes object from visibleObjects
 void ClickManager::removeObject(Clickable* objectToBeRemoved){
     std::cout << "calling remove Object" << std::endl; //TESTING
@@ -202,22 +207,30 @@ void ClickManager::sendGameMgr(std::string data){
 }
 
 void ClickManager::sendMove(std::string moveIn){
-    std::cout <<"test " <<std::endl;
     if(moveIn == "exit"){
         exitGame();
     }
     if(moveIn == "start"){
-            std::cout <<"test " << std::endl;
 
         startGame();
 
     }
+    if(moveIn == "combat"){
+
+        std::cout <<"test " << std::endl;
+    }
+
+
     if(moveIn == "atk_generic"){
 
         //parentObject->
 
          /*This function needs to pass the target and the caster*/
+<<<<<<< HEAD
         //gameMgrPtr->sendTurn(true,"frog","atk_generic");
+=======
+       // gameMgrPtr->sendTurn(true,"frog","atk_generic");
+>>>>>>> 5ab01b6a44594a9c060eae5a5931b1b6a356bc9c
 
     }
 

@@ -7,19 +7,31 @@
     #include <Game.hpp>
     #include <map>
     #include <buttons/GenericBtn.hpp>
+<<<<<<< HEAD
     #include <GameController.hpp>
     #include <BoardController.hpp>
 
 class Clickable; //Forward declaration
 class Game;
 class GameController;
+=======
+    #include <BoardController.hpp>
+
+
+class Clickable; //Forward declaration
+class Game;
+>>>>>>> 5ab01b6a44594a9c060eae5a5931b1b6a356bc9c
 class BoardController;
 
 class ClickManager
 {
     public:
         ClickManager();
+<<<<<<< HEAD
         ClickManager(GameController* gameMgrPtr, BoardController* boardMgrPtr);
+=======
+        ClickManager(BoardController* boardMgrPtr);
+>>>>>>> 5ab01b6a44594a9c060eae5a5931b1b6a356bc9c
         virtual ~ClickManager();
 
         //Adds object to vector of objects that interact with the mouse (hovering & clicking)
@@ -62,7 +74,10 @@ class ClickManager
 
         sf::Vector2i mousePos; //mouse position updated each frame
 
+<<<<<<< HEAD
         GameController *gameMgrPtr;
+=======
+>>>>>>> 5ab01b6a44594a9c060eae5a5931b1b6a356bc9c
         BoardController *boardMgrPtr;
         Game* activeGame; //Stores a ptr to the active game
         sf::RenderWindow* windowPtr;
