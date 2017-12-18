@@ -3,8 +3,7 @@
 #define global_h
 
 
-
-    enum gameStates{menu,playing,options,exiting};
+    enum gameStates{menu,board,combat,options,exiting};\
     static gameStates currentGameState;
 
 
