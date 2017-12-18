@@ -42,10 +42,8 @@ int main(){
 /*TESTING CODE*/
 
 
-
     RenderObject background;
     background.addSprite(objectMgr.getTexture("background"),"background");
-
 
     GenericBtn exitBtn(&clickMgr,"exit");
     exitBtn.addSprite(objectMgr.getTexture("exitBtn"),"button");
@@ -56,8 +54,6 @@ int main(){
     exitBtn.setDefaultPos(sf::IntRect(0,0,120,40));
     exitBtn.setHoverValue(sf::IntRect(120,0,120,40));
 
-
-
     GenericBtn startBtn(&clickMgr,"start");
     startBtn.addSprite(objectMgr.getTexture("startBtn"),"button");
     startBtn.setSpritePosition("button",50,750);
@@ -66,7 +62,6 @@ int main(){
     startBtn.setMainTextLog(&mainEventLog);
     startBtn.setDefaultPos(sf::IntRect(0,0,156,40));
     startBtn.setHoverValue(sf::IntRect(156,0,156,40));
-
 
     objectMgr.addVisible(&startBtn);
     objectMgr.addVisible(&exitBtn);
