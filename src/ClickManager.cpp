@@ -14,8 +14,9 @@ void ClickManager::setWindowPtr(sf::RenderWindow* window){
     this->windowPtr = window;
 }
 
-ClickManager::ClickManager(GameController* gameMgrPtr){
+ClickManager::ClickManager(GameController* gameMgrPtr, BoardController* boardMgrPtr){
     this->gameMgrPtr = gameMgrPtr;
+    this->boardMgrPtr = boardMgrPtr;
 }
 
 //Adds object to vector of objects that interact with the mouse (hovering & clicking)
@@ -191,8 +192,8 @@ void ClickManager::exitGame(){
 }
 
 void ClickManager::startGame(){
-    gameMgrPtr->startGame(this);
-    currentGameState = playing;
+    boardMgrPtr->startGame(this);
+    currentGameState = board;
 }
 
 void ClickManager::sendGameMgr(std::string data){
@@ -216,7 +217,7 @@ void ClickManager::sendMove(std::string moveIn){
         //parentObject->
 
          /*This function needs to pass the target and the caster*/
-        gameMgrPtr->sendTurn(true,"frog","atk_generic");
+        //gameMgrPtr->sendTurn(true,"frog","atk_generic");
 
     }
 

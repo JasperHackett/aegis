@@ -17,7 +17,7 @@ GameController::~GameController()
 GameController* GameController::startGame(ClickManager *clickMgrPtr){
 
     this->clickMgrPtr = clickMgrPtr;
-    currentGameState = playing;
+    currentGameState = combat;
 
     Unit meleeChar(objectMgrPtr, clickMgrPtr);
     meleeChar.hasNestedClickable = true; //Should not be defined here
