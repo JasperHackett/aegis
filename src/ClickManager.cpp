@@ -14,12 +14,8 @@ void ClickManager::setWindowPtr(sf::RenderWindow* window){
     this->windowPtr = window;
 }
 
-<<<<<<< HEAD
 ClickManager::ClickManager(GameController* gameMgrPtr, BoardController* boardMgrPtr){
     this->gameMgrPtr = gameMgrPtr;
-=======
-ClickManager::ClickManager(BoardController* boardMgrPtr){
->>>>>>> 5ab01b6a44594a9c060eae5a5931b1b6a356bc9c
     this->boardMgrPtr = boardMgrPtr;
 }
 
@@ -226,11 +222,10 @@ void ClickManager::sendMove(std::string moveIn){
         //parentObject->
 
          /*This function needs to pass the target and the caster*/
-<<<<<<< HEAD
-        //gameMgrPtr->sendTurn(true,"frog","atk_generic");
-=======
+
+
        // gameMgrPtr->sendTurn(true,"frog","atk_generic");
->>>>>>> 5ab01b6a44594a9c060eae5a5931b1b6a356bc9c
+
 
     }
 

@@ -17,12 +17,8 @@ GameController::~GameController()
 GameController* GameController::startGame(ClickManager *clickMgrPtr){
 
     this->clickMgrPtr = clickMgrPtr;
-<<<<<<< HEAD
     currentGameState = combat;
-=======
     currentGameState = board;
->>>>>>> 5ab01b6a44594a9c060eae5a5931b1b6a356bc9c
-
     Unit meleeChar(objectMgrPtr, clickMgrPtr);
     meleeChar.hasNestedClickable = true; //Should not be defined here
     meleeChar.addSprite(objectMgrPtr->getTexture("meleeUnit"),"body");
