@@ -1,4 +1,4 @@
-#include <buttons/AbilityButton.hpp>
+#include <AbilityButton.hpp>
 
 AbilityButton::AbilityButton()
 {

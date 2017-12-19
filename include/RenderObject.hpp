@@ -45,7 +45,6 @@ class RenderObject{
 
         bool rendered = false;
 
-
         sf::IntRect pos; //Stores object position
         std::map<std::string,sf::Sprite> spriteMap; //Key: name (e.g. "head") Value: sprite
         std::map<std::string,sf::Text> textMap;
@@ -53,6 +52,8 @@ class RenderObject{
     protected:
 
     private:
+
+
 
 };
 

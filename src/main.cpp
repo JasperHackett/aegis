@@ -30,6 +30,9 @@ int main(){
     objectMgr.loadTexture("healthbar","assets/health_fill.png");
     objectMgr.loadTexture("healthoutline","assets/health_outline.png");
     objectMgr.loadTexture("combatBtn","assets/combatbtn.png");
+    objectMgr.loadTexture("topbar","assets/topbar.png");
+    objectMgr.loadTexture("menubtn","assets/menubutton.png");
+    objectMgr.loadTexture("dropdownbtn","assets/dropdownbtn.png");
 
 /*TESTING CODE*/
 
@@ -180,4 +183,3 @@ int main(){
         mainWindow.display();
     }
 }
-//TEST COMMENT
