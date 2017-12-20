@@ -16,26 +16,27 @@ DropDownMenu::~DropDownMenu()
 }
 
 //Adds and a button to the menu using an existing buttonAssetID
-void DropDownMenu::addBtn(std::string buttonID, std::string labelIn){
-    GenericBtn newBtn(this->clickMgrPtr, buttonID);
-    newBtn.addSprite(objectMgrPtr->getTexture(buttonAssetID),"button");
-    newBtn.setDefaultPos(sf::IntRect(0,0,200,40));
-    newBtn.setHoverValue(sf::IntRect(201,0,200,40));
+void DropDownMenu::addBtn(std::string buttonID, std::string labelIn, std::string actionIDIn){
+    GenericBtn newBtn(this->objectMgrPtr,this->clickMgrPtr, labelIn, actionIDIn);
+    newBtn.addSprite(objectMgrPtr->getTexture(this->buttonAssetID),"button");
+    newBtn.setDefaultPos(sf::IntRect(0,0,200,20));
+    newBtn.setHoverValue(sf::IntRect(201,0,200,20));
+    newBtn.addText(objectMgrPtr->getFont("trebuc"),"labelText",labelIn,sf::Color::Black,16);
     newBtn.setTextureRect("button",newBtn.defaultPos);
     this->buttons.push_back(newBtn);
 
-   // positionButtons();
+    positionButtons();
 
 }
 
 //Adds and a button to the menu and sets the buttonAssetID
-void DropDownMenu::addBtn(std::string buttonID, std::string labelIn,std::string buttonAssetID){
+void DropDownMenu::addBtn(std::string buttonID, std::string labelIn,std::string buttonAssetID,std::string actionIDIn){
     this->buttonAssetID = buttonAssetID;
-    GenericBtn newBtn(this->clickMgrPtr, buttonID);
+    GenericBtn newBtn(this->objectMgrPtr,this->clickMgrPtr, labelIn, actionIDIn);
     newBtn.addSprite(objectMgrPtr->getTexture(buttonAssetID),"button");
     newBtn.setDefaultPos(sf::IntRect(0,0,200,20));
     newBtn.setHoverValue(sf::IntRect(201,0,200,20));
-    //newBtn.setSpritePosition("button",500,500);
+    newBtn.addText(objectMgrPtr->getFont("trebuc"),"labelText",labelIn,sf::Color::Black,16);
     newBtn.setTextureRect("button",newBtn.defaultPos);
     this->buttons.push_back(newBtn);
 
@@ -54,9 +55,24 @@ void DropDownMenu::positionButtons(){
         iterator->setPos(sf::IntRect(this->getPos().left,startingY + 20*i,200,20));
         iterator->setSpritePosition("button",this->getPos().left,startingY + 20*i);
         iterator->setTextureRect("button",sf::IntRect(0,0,200,20));
-        //int textInt = (200- iterator->getTextWidth("labelText"))/2;
-        //iterator->setTextPosition("labelText",this->getPos().left + 40 + textInt,startingY + 32*i + 6);
+        iterator->setTextPosition("labelText",this->getPos().left +5,startingY + 20*i);
         i++;
+    }
+
+}
+
+void DropDownMenu::setHovered(bool setHovered){
+    if(setHovered){
+        if(clicked == false){
+             setTextureRect("primary",hoverPos);
+        }
+        hovered = true;
+    }else{
+        if(clicked == false){
+            setTextureRect("primary",defaultPos);
+        }
+
+        hovered = false;
     }
 
 }
@@ -73,10 +89,11 @@ void DropDownMenu::isClicked(bool toggleClick){
 
                 }
             }
-
+            this->setTextureRect("primary",clickedPos);
             this->clicked = true;
 
         }else{
+            this->setTextureRect("primary",defaultPos);
             this->clicked = false;
 
 

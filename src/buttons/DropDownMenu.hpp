@@ -13,11 +13,12 @@ class DropDownMenu : public Clickable {
         DropDownMenu(ObjectManager* objectMgrPtr, ClickManager* clickMgrPtr);
         virtual ~DropDownMenu();
 
-        virtual void addBtn(std::string buttonID, std::string labelIn);
-        virtual void addBtn(std::string buttonID, std::string labelIn,std::string buttonAssetID);
+        virtual void addBtn(std::string buttonID, std::string labelIn,std::string actionIDIn);
+        virtual void addBtn(std::string buttonID, std::string labelIn,std::string buttonAssetID,std::string actionIDIn);
 
         virtual void positionButtons();
         virtual void isClicked(bool toggleClick);
+        virtual void setHovered(bool setHovered);
 
         std::string buttonAssetID; //String used to load the texture of the buttons
         std::list<GenericBtn> buttons;

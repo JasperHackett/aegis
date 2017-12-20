@@ -27,10 +27,14 @@ GameController* GameController::startGame(ClickManager *clickMgrPtr){
 
     DropDownMenu controlMenu(objectMgrPtr,clickMgrPtr);
     controlMenu.addSprite(objectMgrPtr->getTexture("menubtn"),"primary");
-    controlMenu.setTextureRect("primary",sf::IntRect(0,0,200,20));
-    controlMenu.addBtn("dropdownbtn","Exit game","dropdownbtn");
-    controlMenu.addBtn("dropdownbtn","Exit game","dropdownbtn");
-    controlMenu.addBtn("dropdownbtn","Exit game","dropdownbtn");
+    controlMenu.setDefaultPos(sf::IntRect(60,0,60,20));
+    controlMenu.setTextureRect("primary",sf::IntRect(60,0,60,20));
+    controlMenu.setHoverValue(sf::IntRect(0,0,60,20));
+    controlMenu.setClickedPos(sf::IntRect(0,20,60,20));
+    controlMenu.addBtn("dropdownbtn","","dropdownbtn","exit");
+    controlMenu.addBtn("dropdownbtn","Quit","dropdownbtn","exit");
+    controlMenu.addBtn("dropdownbtn","Exit","dropdownbtn","exit");
+    controlMenu.addBtn("dropdownbtn","Exit game","dropdownbtn","exit");
     controlMenu.setPos(sf::IntRect(0,0,60,20));
     gameMenuDropdowns.push_back(controlMenu);
 

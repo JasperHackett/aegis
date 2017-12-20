@@ -33,6 +33,7 @@ class Clickable : public RenderObject{
 
         void setHoverValue(sf::IntRect hoverValIn);
         void setDefaultPos(sf::IntRect defaultValIn);
+        void setClickedPos(sf::IntRect clickedValIn);
 
         virtual std::string returnID();
 
@@ -42,8 +43,11 @@ class Clickable : public RenderObject{
         bool hovered = false;
         bool hoverable = false;
 
+
         sf::IntRect hoverPos;
         sf::IntRect defaultPos;
+        sf::IntRect clickedPos;
+
 
         TextLog* mainTextLog;//Main destination for text outputs from this object
         std::string actionID;

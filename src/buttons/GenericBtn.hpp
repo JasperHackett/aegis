@@ -14,7 +14,7 @@ public:
 
     GenericBtn();
     //Constructer for giving a text label to the object. Useful for buttons
-    GenericBtn(ObjectManager* objectMgrPtr, std::string labelText);
+    GenericBtn(ObjectManager* objectMgrPtr, ClickManager* clickMgrPtr, std::string labelText,std::string actionID);
     GenericBtn(ClickManager* clickMgrPtr);
     GenericBtn(ClickManager* clickMgrPtr,std::string actionIDIn);
     ~GenericBtn();

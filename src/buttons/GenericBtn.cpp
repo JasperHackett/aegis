@@ -6,9 +6,11 @@
 
 
     //Constructer for giving a text label to the object. Useful for buttons
-    GenericBtn::GenericBtn(ObjectManager* objectMgrPtr, std::string labelText){
+    GenericBtn::GenericBtn(ObjectManager* objectMgrPtr, ClickManager* clickMgrPtr, std::string labelText, std::string actionID){
         this->objectMgrPtr = objectMgrPtr;
+        this->clickMgrPtr = clickMgrPtr;
         this->addText(objectMgrPtr->getFont("trebuc"),"labelText",labelText,sf::Color::Black,16);
+        this->setActionID(actionID);
     }
 
     GenericBtn::GenericBtn(ClickManager* clickMgrPtr){

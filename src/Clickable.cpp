@@ -38,7 +38,6 @@ void Clickable::setHovered(bool setHovered){
         hovered = true;
     }else{
         hovered = false;
-       std::cout << "Object un-hovered" << std::endl;
     }
 
 }
@@ -53,4 +52,7 @@ void Clickable::setHoverValue(sf::IntRect hoverValIn){
 
 void Clickable::setDefaultPos(sf::IntRect defaultValIn){
     this->defaultPos = defaultValIn;
+}
+void Clickable::setClickedPos(sf::IntRect clickedValIn){
+    this->clickedPos = clickedValIn;
 }
