@@ -3,6 +3,16 @@
 
 
     GenericBtn::GenericBtn(){}
+
+
+    //Constructer for giving a text label to the object. Useful for buttons
+    GenericBtn::GenericBtn(ObjectManager* objectMgrPtr, ClickManager* clickMgrPtr, std::string labelText, std::string actionID){
+        this->objectMgrPtr = objectMgrPtr;
+        this->clickMgrPtr = clickMgrPtr;
+        this->addText(objectMgrPtr->getFont("trebuc"),"labelText",labelText,sf::Color::Black,16);
+        this->setActionID(actionID);
+    }
+
     GenericBtn::GenericBtn(ClickManager* clickMgrPtr){
         this->clickMgrPtr = clickMgrPtr;
     }
@@ -31,7 +41,7 @@
     void GenericBtn::setHovered(bool setHovered){
         if(setHovered){
             hovered = true;
-            this->setTextureRect("button",hoverValue);
+            this->setTextureRect("button",hoverPos);
         }else{
             hovered = false;
             this->setTextureRect("button",defaultPos);
@@ -49,12 +59,6 @@
     }
 
 
-    void GenericBtn::setHoverValue(sf::IntRect hoverValIn){
-        this->hoverValue = hoverValIn;
-    }
 
-    void GenericBtn::setDefaultPos(sf::IntRect defaultValIn){
-        this->defaultPos = defaultValIn;
-    }
 
 

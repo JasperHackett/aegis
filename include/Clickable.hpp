@@ -5,14 +5,15 @@
 #include <RenderObject.hpp>
 #include <TextLog.hpp>
 
-//
 class ObjectManager;
 class ClickManager;
+
 
 class Clickable : public RenderObject{
 
     public:
         Clickable();
+        Clickable(ObjectManager* objectMgrPtr, std::string labelText); //Constructer for giving a text label to the object. Useful for buttons
         virtual ~Clickable();
 
         /*Methods*/
@@ -30,6 +31,10 @@ class Clickable : public RenderObject{
         //Called when this clickable requires you to select another object (e.g. A unit choosing an enemy to attack)
         //virtual std::string targetObject();
 
+        void setHoverValue(sf::IntRect hoverValIn);
+        void setDefaultPos(sf::IntRect defaultValIn);
+        void setClickedPos(sf::IntRect clickedValIn);
+
         virtual std::string returnID();
 
         /*Variables*/
@@ -37,6 +42,12 @@ class Clickable : public RenderObject{
         bool clicked = false;
         bool hovered = false;
         bool hoverable = false;
+
+
+        sf::IntRect hoverPos;
+        sf::IntRect defaultPos;
+        sf::IntRect clickedPos;
+
 
         TextLog* mainTextLog;//Main destination for text outputs from this object
         std::string actionID;

@@ -27,7 +27,6 @@ void ClickManager::addObject(Clickable* objectIn){
 
 //Removes object from visibleObjects
 void ClickManager::removeObject(Clickable* objectToBeRemoved){
-    std::cout << "calling remove Object" << std::endl; //TESTING
     visibleObjects.erase(std::remove(visibleObjects.begin(),visibleObjects.end(),objectToBeRemoved), visibleObjects.end());
 
 }
@@ -193,6 +192,7 @@ void ClickManager::exitGame(){
 }
 
 void ClickManager::startGame(){
+    gameMgrPtr->startGame(this);
     boardMgrPtr->startGame(this);
     currentGameState = board;
 }
@@ -213,7 +213,6 @@ void ClickManager::sendMove(std::string moveIn){
     }
     if(moveIn == "combat"){
 
-        std::cout <<"test " << std::endl;
     }
 
 

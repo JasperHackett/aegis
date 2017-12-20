@@ -1,11 +1,8 @@
 #ifndef GENERICBTN_HPP
 #define GENERICBTN_HPP
 
-
-
 #include <Clickable.hpp>
 #include <ClickManager.hpp>
-
 
 class GenericBtn : public Clickable {
 
@@ -16,6 +13,8 @@ public:
     ClickManager* clickMgrPtr;
 
     GenericBtn();
+    //Constructer for giving a text label to the object. Useful for buttons
+    GenericBtn(ObjectManager* objectMgrPtr, ClickManager* clickMgrPtr, std::string labelText,std::string actionID);
     GenericBtn(ClickManager* clickMgrPtr);
     GenericBtn(ClickManager* clickMgrPtr,std::string actionIDIn);
     ~GenericBtn();
@@ -27,12 +26,11 @@ public:
     virtual std::string getActionID();
     virtual void setActionID(std::string actionIDIn);
 
-    virtual void setHoverValue(sf::IntRect hoverValIn);
-    virtual void setDefaultPos(sf::IntRect defaultValIn);
+//    virtual void setHoverValue(sf::IntRect hoverValIn);
+//    virtual void setDefaultPos(sf::IntRect defaultValIn);
 
     std::string actionID;
-    sf::IntRect hoverValue;
-    sf::IntRect defaultPos;
+
 
 
 protected:

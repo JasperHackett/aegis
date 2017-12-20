@@ -79,7 +79,5 @@ void ObjectManager::removeObjects(){
     }
 
     visibleObjects = newVisibleObjects;
-
-
 }
 

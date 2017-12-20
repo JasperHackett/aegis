@@ -10,18 +10,13 @@
     #include <GameController.hpp>
     #include <BoardController.hpp>
 
-class Clickable; //Forward declaration
-class Game;
-class GameController;
-    #include <BoardController.hpp>
-
 
 class Clickable; //Forward declaration
 class Game;
 class BoardController;
+class GameController;
 
-class ClickManager
-{
+class ClickManager{
     public:
         ClickManager();
         ClickManager(GameController* gameMgrPtr, BoardController* boardMgrPtr);

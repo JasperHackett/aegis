@@ -9,7 +9,7 @@
 #include <TextLog.hpp>
 #include <ObjectManager.hpp>
 #include <global.hpp>
-//#include <GameController.hpp>
+#include <GameController.hpp>
 //Constants
 float resHeight;
 float resWidth;
