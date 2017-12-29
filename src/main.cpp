@@ -54,9 +54,9 @@ int main(){
 
     GenericBtn optionsBtn(&clickMgr,"options");
     optionsBtn.addSprite(objectMgr.getTexture("optionsBtn"),"button");
-    optionsBtn.setSpritePosition("button",50,670);
+    optionsBtn.setSpritePosition("button",50,750);
     optionsBtn.setTextureRect("button",sf::IntRect(0,0,216,40));
-    optionsBtn.setPos(sf::IntRect(50,670,216,40));
+    optionsBtn.setPos(sf::IntRect(50,750,216,40));
     optionsBtn.setMainTextLog(&mainEventLog);
     optionsBtn.setDefaultPos(sf::IntRect(0,0,216,40));
     optionsBtn.setHoverValue(sf::IntRect(216,0,216,40));
@@ -72,32 +72,20 @@ int main(){
 
     GenericBtn startBtn(&clickMgr,"start");
     startBtn.addSprite(objectMgr.getTexture("startBtn"),"button");
-    startBtn.setSpritePosition("button",50,590);
+    startBtn.setSpritePosition("button",50,670);
     startBtn.setTextureRect("button",sf::IntRect(0,0,156,40));
-    startBtn.setPos(sf::IntRect(50,590,156,40));
+    startBtn.setPos(sf::IntRect(50,670,156,40));
     startBtn.setMainTextLog(&mainEventLog);
     startBtn.setDefaultPos(sf::IntRect(0,0,156,40));
     startBtn.setHoverValue(sf::IntRect(156,0,156,40));
 
-    GenericBtn combatBtn(&clickMgr,"combat");
-    combatBtn.addSprite(objectMgr.getTexture("combatBtn"),"button");
-    combatBtn.setSpritePosition("button",50,750);
-    combatBtn.setTextureRect("button",sf::IntRect(0,0,203,40));
-    combatBtn.setPos(sf::IntRect(50,750,203,40));
-    combatBtn.setMainTextLog(&mainEventLog);
-    combatBtn.setDefaultPos(sf::IntRect(0,0,203,40));
-    combatBtn.setHoverValue(sf::IntRect(203,0,203,40));
-
-
     objectMgr.addVisible(&startBtn);
     objectMgr.addVisible(&exitBtn);
-    objectMgr.addVisible(&combatBtn);
     objectMgr.addVisible(&optionsBtn);
 
     clickMgr.setWindowPtr(&mainWindow);
     clickMgr.addObject(&startBtn);
     clickMgr.addObject(&exitBtn);
-    clickMgr.addObject(&combatBtn);
     clickMgr.addObject(&optionsBtn);
 
 
@@ -138,18 +126,18 @@ int main(){
                 exitBtn.rendered = false;
                 exitBtn.hoverable = false;
 
-                combatBtn.rendered = false;
-                combatBtn.hoverable = false;
+                optionsBtn.rendered = false;
+                optionsBtn.hoverable = false;
                 objectMgr.removeObjects();
                 clickMgr.removeObject(&startBtn);
                 clickMgr.removeObject(&exitBtn);
-                clickMgr.removeObject(&combatBtn);
+                clickMgr.removeObject(&optionsBtn);
 
                 clickMgr.removeObject(&startBtn);
                 clickMgr.removeObject(&exitBtn);
-                combatBtn.rendered = false;
-                combatBtn.hoverable = false;
-                clickMgr.removeObject(&combatBtn);
+                optionsBtn.rendered = false;
+                optionsBtn.hoverable = false;
+                clickMgr.removeObject(&optionsBtn);
                 objectMgr.removeObjects();
 
 

@@ -31,8 +31,7 @@ GameController* GameController::startGame(ClickManager *clickMgrPtr){
     controlMenu.setHoverValue(sf::IntRect(0,0,60,20));
     controlMenu.setClickedPos(sf::IntRect(0,20,60,20));
     controlMenu.addBtn("dropdownbtn","","dropdownbtn","");
-    controlMenu.addBtn("dropdownbtn","Resolution","dropdownbtn","options");
-    controlMenu.addBtn("dropdownbtn","Fullscreen","dropdownbtn","fullscreen");
+    controlMenu.addBtn("dropdownbtn","Options","dropdownbtn","options");
     controlMenu.addBtn("dropdownbtn","Exit game","dropdownbtn","exit");
     controlMenu.setPos(sf::IntRect(0,0,60,20));
     gameMenuDropdowns.push_back(controlMenu);
