@@ -197,35 +197,45 @@ void ClickManager::startGame(){
     currentGameState = board;
 }
 
+void ClickManager::optionsMenu(bool enableMenu){
+    if(enableMenu){
+        for(Clickable* object : this->visibleObjects){
+            this->suspendedObjects.push_back(object);
+        }
+        visibleObjects.clear();
+        gameMgrPtr->optionsMenu(enableMenu,this);
+    }else{
+        for(Clickable* object : this->suspendedObjects){
+            this->visibleObjects.push_back(object);
+        }
+        suspendedObjects.clear();
+        gameMgrPtr->optionsMenu(enableMenu,this);
+    }
+}
+
 void ClickManager::sendGameMgr(std::string data){
 //    gameMgrPtr->sendMove
-
 }
 
 void ClickManager::sendMove(std::string moveIn){
     if(moveIn == "exit"){
         exitGame();
-    }
-    if(moveIn == "start"){
-
+    }else if(moveIn == "start"){
         startGame();
-
-    }
-    if(moveIn == "combat"){
-
-    }
-
-
-    if(moveIn == "atk_generic"){
-
-        //parentObject->
-
-         /*This function needs to pass the target and the caster*/
-
-
-       // gameMgrPtr->sendTurn(true,"frog","atk_generic");
-
-
+    }else if(moveIn == "options"){
+        optionsMenu(true);
+    }else if(moveIn == "fullscreen"){
+        optionChangeList.push_back("fullscreen:1");
+    }else if(moveIn == "windowed"){
+        optionChangeList.push_back("fullscreen:0");
+    }else if(moveIn == "closeOptions"){
+        optionChangeList.clear();
+        optionsMenu(false);
+    }else if(moveIn == "applyOptions"){
+        gameMgrPtr->applyOptions(optionChangeList);
+        optionChangeList.clear();
+    }else if(moveIn == "resolution"){
+        optionChangeList.push_back("resolution:1920,1080");
     }
 
 }

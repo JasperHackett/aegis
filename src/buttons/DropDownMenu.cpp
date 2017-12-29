@@ -4,16 +4,14 @@ DropDownMenu::DropDownMenu()
 {
     //ctor
 }
+//Passes pointers to the object. Required for most member functions to work
 DropDownMenu::DropDownMenu(ObjectManager* objectMgrPtr, ClickManager* clickMgrPtr)
 {
     this->objectMgrPtr = objectMgrPtr;
     this->clickMgrPtr = clickMgrPtr;
 }
 
-DropDownMenu::~DropDownMenu()
-{
-    //dtor
-}
+DropDownMenu::~DropDownMenu(){}
 
 //Adds and a button to the menu using an existing buttonAssetID
 void DropDownMenu::addBtn(std::string buttonID, std::string labelIn, std::string actionIDIn){
@@ -43,7 +41,7 @@ void DropDownMenu::addBtn(std::string buttonID, std::string labelIn,std::string 
     positionButtons();
 
 }
-
+//Positions the buttons in descending order vertically down
 void DropDownMenu::positionButtons(){
 
     int startingY = 20;

@@ -50,6 +50,7 @@ class ClickManager{
 
         virtual void startGame();
         virtual void exitGame();
+        virtual void optionsMenu(bool enableMenu);
         gameStates currentGameState;
 
     protected:
@@ -57,22 +58,23 @@ class ClickManager{
     private:
         std::vector<Clickable*> visibleObjects;  //Stores all objects with hover properties
         std::vector<Clickable*> nestedObjects; //Stores objects nested in another objec
+        std::vector<Clickable*> suspendedObjects; //Stores objects that are temporarily suspended from registering clicks (e.g. Opening options menu)
 
         bool somethingHovered = false; //True if mouse is hovering over an object in visibleObjects/nestedObjects vector
+
+        std::list<std::string> optionChangeList; //Stores all option changes temporarily before they are applied
 
         sf::Vector2i mousePos; //mouse position updated each frame
 
         GameController *gameMgrPtr;
         BoardController *boardMgrPtr;
-        Game* activeGame; //Stores a ptr to the active game
+        Game* activeGame; //Stores a ptr to the active game /*UNUSED*/
         sf::RenderWindow* windowPtr;
 
         //Stores active object in several states. (mousePressedObject is an object that has been pressed but not released on)
         Clickable* hoveredObject = nullptr;
         Clickable* mousePressedObject = nullptr;
         Clickable* clickedObject = nullptr;
-
-
 
         Clickable* parentObject = nullptr; //Stores the parent of an object with nested clicks.
 

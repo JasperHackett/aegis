@@ -3,10 +3,20 @@
 
 
 int main(){
-    resHeight = 1600;
-    resWidth = 900;
-    fullscreen = false;
-    sf::RenderWindow mainWindow(sf::VideoMode(resHeight, resWidth), "Aegis", sf::Style::Close);
+
+    mainWindow.create(sf::VideoMode(1600,900), "Aegis", sf::Style::Close);
+    // Loads the contents of config.txt into a list of strings and passes it to GameController to apply the settings
+    inFile.open("conf/config.txt");
+    std::list<std::string> configList;
+    std::string fileOutput;
+    if(inFile.is_open()){
+        while(!inFile.eof()){
+            std::getline(inFile,fileOutput);
+            configList.push_back(fileOutput);
+        }
+    }
+    inFile.close();
+    gameControl.applyOptions(configList);
 
     //Loading fonts
     objectMgr.loadFont("trebuc","assets/trebuc.ttf");
@@ -20,6 +30,7 @@ int main(){
     //Loading textures from files into class ObjectManager
     objectMgr.loadTexture("startBtn","assets/startbtn.png");
     objectMgr.loadTexture("exitBtn","assets/exitbtn.png");
+    objectMgr.loadTexture("optionsBtn","assets/optionsbtn.png");
     objectMgr.loadTexture("ranged","assets/rangedchar.png");
     objectMgr.loadTexture("abilityBtn","assets/abilitybutton.png");
     objectMgr.loadTexture("meleeUnit","assets/meleechar1.png");
@@ -33,12 +44,22 @@ int main(){
     objectMgr.loadTexture("topbar","assets/topbar.png");
     objectMgr.loadTexture("menubtn","assets/menubutton.png");
     objectMgr.loadTexture("dropdownbtn","assets/dropdownbtn.png");
+    objectMgr.loadTexture("optionsmenu_background","assets/optionsmenu.png");
 
 /*TESTING CODE*/
 
 
     RenderObject background;
     background.addSprite(objectMgr.getTexture("background"),"background");
+
+    GenericBtn optionsBtn(&clickMgr,"options");
+    optionsBtn.addSprite(objectMgr.getTexture("optionsBtn"),"button");
+    optionsBtn.setSpritePosition("button",50,670);
+    optionsBtn.setTextureRect("button",sf::IntRect(0,0,216,40));
+    optionsBtn.setPos(sf::IntRect(50,670,216,40));
+    optionsBtn.setMainTextLog(&mainEventLog);
+    optionsBtn.setDefaultPos(sf::IntRect(0,0,216,40));
+    optionsBtn.setHoverValue(sf::IntRect(216,0,216,40));
 
     GenericBtn exitBtn(&clickMgr,"exit");
     exitBtn.addSprite(objectMgr.getTexture("exitBtn"),"button");
@@ -51,9 +72,9 @@ int main(){
 
     GenericBtn startBtn(&clickMgr,"start");
     startBtn.addSprite(objectMgr.getTexture("startBtn"),"button");
-    startBtn.setSpritePosition("button",50,670);
+    startBtn.setSpritePosition("button",50,590);
     startBtn.setTextureRect("button",sf::IntRect(0,0,156,40));
-    startBtn.setPos(sf::IntRect(50,670,156,40));
+    startBtn.setPos(sf::IntRect(50,590,156,40));
     startBtn.setMainTextLog(&mainEventLog);
     startBtn.setDefaultPos(sf::IntRect(0,0,156,40));
     startBtn.setHoverValue(sf::IntRect(156,0,156,40));
@@ -71,11 +92,13 @@ int main(){
     objectMgr.addVisible(&startBtn);
     objectMgr.addVisible(&exitBtn);
     objectMgr.addVisible(&combatBtn);
+    objectMgr.addVisible(&optionsBtn);
 
     clickMgr.setWindowPtr(&mainWindow);
     clickMgr.addObject(&startBtn);
     clickMgr.addObject(&exitBtn);
     clickMgr.addObject(&combatBtn);
+    clickMgr.addObject(&optionsBtn);
 
 
 
@@ -87,7 +110,7 @@ int main(){
     //Main frame loop
     while (mainWindow.isOpen()){
 
-        //CHECK IF GAME STATE HAS CHANGED - GameStates: {menu,playing,options,exiting}
+        //CHECK IF GAME STATE HAS CHANGED - GameStates: {menu,board,exiting}
         if(clickMgr.currentGameState != existingGameState){
             switch(clickMgr.currentGameState){
             //Change game state
@@ -129,9 +152,6 @@ int main(){
                 clickMgr.removeObject(&combatBtn);
                 objectMgr.removeObjects();
 
-
-                break;
-            case(options) :
 
                 break;
             case(exiting):
