@@ -1,0 +1,4 @@
+#These configuration settings are loaded at game launch
+#Any line that begins with a '#' will not be read
+resolution:1600,900
+fullscreen:0
